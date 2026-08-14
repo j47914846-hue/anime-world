@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anime World — Discover Your Next Obsession</title>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Bangers&family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  /* ===========================
+     ROOT VARIABLES / THEME
+  =========================== */
+  :root{
+    --bg-base:#0a0713;
+    --bg-panel:#140f22;
+    --bg-panel-light:#1c1530;
+    --neon-pink:#ff2ec4;
+    --neon-purple:#8b2fff;
+    --neon-blue:#2fd8ff;
+    --text-main:#f1eefc;
+    --text-dim:#a79cc7;
+    --border-soft:rgba(255,255,255,0.08);
+    --shadow-glow: 0 0 20px rgba(255,46,196,0.35), 0 0 40px rgba(139,47,255,0.2);
+    --font-main:'Poppins', sans-serif;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--bg-base);
+    color:var(--text-main);
+    font-family:var(--font-main);
+    overflow-x:hidden;
+    background-image:
+      radial-gradient(circle at 10% 10%, rgba(139,47,255,0.12), transparent 40%),
+      radial-gradient(circle at 90% 20%, rgba(255,46,196,0.10), transparent 40%),
+      radial-gradient(circle at 50% 90%, rgba(47,216,255,0.08), transparent 40%);
+    transition:font-family 0.2s;
+  }
+
+  /* Persian mode uses Vazirmatn everywhere */
+  html[dir="rtl"] body{
+    font-family:'Vazirmatn', sans-serif;
+  }
+  html[dir="rtl"] .logo{
+    font-family:'Vazirmatn', sans-serif;
+  }
+
+  a{text-decoration:none;color:inherit;}
+  ul{list-style:none;}
+  img{max-width:100%;display:block;}
+  button{font-family:inherit;cursor:pointer;border:none;}
+
+  ::-webkit-scrollbar{width:10px;height:10px;}
+  ::-webkit-scrollbar-track{background:var(--bg-base);}
+  ::-webkit-scrollbar-thumb{background:linear-gradient(var(--neon-pink), var(--neon-purple));border-radius:10px;}
+
+  .container{
+    width:100%;
+    max-width:1200px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  .section-title{
+    font-size:2rem;
+    font-weight:700;
+    margin-bottom:8px;
+    background:linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    display:inline-block;
+  }
+
+  .section-sub{
+    color:var(--text-dim);
+    margin-bottom:32px;
+    font-size:0.95rem;
+  }
+
+  /* ===========================
+     HEADER / NAVBAR
+  =========================== */
+  header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:rgba(10,7,19,0.85);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--border-soft);
+  }
+
+  .navbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:14px 24px;
+    max-width:1200px;
+    margin:0 auto;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+
+  .logo{
+    font-family:'Bangers', cursive;
+    letter-spacing:2px;
+    font-size:1.8rem;
+    background:linear-gradient(90deg, var(--neon-pink), var(--neon-purple), var(--neon-blue));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    white-space:nowrap;
+  }
+
+  .nav-links{
+    display:flex;
+    gap:28px;
+    align-items:center;
+  }
+
+  .nav-links a{
+    font-weight:500;
+    font-size:0.95rem;
+    color:var(--text-main);
+    position:relative;
+    padding:6px 2px;
+    transition:color 0.3s;
+    white-space:nowrap;
+  }
+
+  .nav-links a::after{
+    content:'';
+    position:absolute;
+    left:0; bottom:0;
+    width:0%;
+    height:2px;
+    background:linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
+    transition:width 0.3s ease;
+  }
+
+  .nav-links a:hover{color:var(--neon-pink);}
+  .nav-links a:hover::after{width:100%;}
+
+  .nav-search{
+    display:flex;
+    align-items:center;
+    background:var(--bg-panel-light);
+    border:1px solid var(--border-soft);
+    border-radius:999px;
+    padding:8px 16px;
+    gap:8px;
+    min-width:180px;
+    transition:box-shadow 0.3s, border-color 0.3s;
+  }
+
+  .nav-search:focus-within{
+    border-color:var(--neon-pink);
+    box-shadow:0 0 12px rgba(255,46,196,0.4);
+  }
+
+  .nav-search input{
+    background:transparent;
+    border:none;
+    outline:none;
+    color:var(--text-main);
+    font-family:inherit;
+    font-size:0.9rem;
+    width:100%;
+  }
+
+  .nav-search input::placeholder{color:var(--text-dim);}
+  .nav-search svg{flex-shrink:0;stroke:var(--text-dim);}
+
+  /* Language switcher */
+  .lang-switch{
+    display:flex;
+    background:var(--bg-panel-light);
+    border:1px solid var(--border-soft);
+    border-radius:999px;
+    padding:4px;
+    gap:2px;
+    flex-shrink:0;
+  }
+
+  .lang-btn{
+    padding:6px 14px;
+    border-radius:999px;
+    background:transparent;
+    color:var(--text-dim);
+    font-size:0.8rem;
+    font-weight:600;
+    transition:all 0.25s ease;
+  }
+
+  .lang-btn.active{
+    background:linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
+    color:#fff;
+    box-shadow:0 0 10px rgba(255,46,196,0.4);
+  }
+
+  /* mobile menu toggle */
+  .menu-toggle{
+    display:none;
+    flex-direction:column;
+    gap:5px;
+    background:none;
+    flex-shrink:0;
+    padding:8px;
+  }
+  .menu-toggle span{
+    width:24px;height:2px;background:var(--text-main);border-radius:2px;
+  }
+
+  /* ===========================
+     HERO SECTION
+  =========================== */
+  .hero{
+    position:relative;
+    min-height:88vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:60px 24px;
+    background:
+      linear-gradient(180deg, rgba(10,7,19,0.4) 0%, rgba(10,7,19,0.85) 85%, var(--bg-base) 100%),
+      url('https://picsum.photos/seed/animehero/1600/900');
+    background-size:cover;
+    background-position:center;
+    overflow:hidden;
+  }
+
+  .hero::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:radial-gradient(ellipse at center, transparent 30%, var(--bg-base) 95%);
+    pointer-events:none;
+  }
+
+  .hero-content{
+    position:relative;
+    z-index:2;
+    max-width:700px;
+    animation:fadeUp 1s ease both;
+  }
+
+  .hero-content .eyebrow{
+    letter-spacing:4px;
+    text-transform:uppercase;
+    font-size:0.8rem;
+    color:var(--neon-blue);
+    margin-bottom:16px;
+    display:inline-block;
+  }
+
+  .hero-content h1{
+    font-size:clamp(2.2rem, 6vw, 4rem);
+    font-weight:800;
+    line-height:1.25;
+    margin-bottom:20px;
+  }
+
+  .hero-content h1 span{
+    background:linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+
+  .hero-content p{
+    color:var(--text-dim);
+    font-size:1.05rem;
+    margin-bottom:32px;
+    line-height:1.8;
+  }
+
+  .btn-primary{
+    display:inline-block;
+    padding:16px 40px;
+    border-radius:999px;
+    background:linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
+    color:#fff;
+    font-weight:600;
+    font-size:1rem;
+    box-shadow:var(--shadow-glow);
+    transition:transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .btn-primary:hover{
+    transform:translateY(-3px) scale(1.03);
+    box-shadow:0 0 30px rgba(255,46,196,0.6), 0 0 60px rgba(139,47,255,0.35);
+  }
+
+  @keyframes fadeUp{
+    from{opacity:0; transform:translateY(30px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  /* ===========================
+     GENERIC SECTION SPACING
+  =========================== */
+  section{
+    padding:80px 0;
+  }
+
+  /* ===========================
+     GENRE FILTER BUTTONS
+  =========================== */
+  .filter-bar{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:40px;
+  }
+
+  .filter-btn{
+    padding:9px 20px;
+    border-radius:999px;
+    background:var(--bg-panel-light);
+    border:1px solid var(--border-soft);
+    color:var(--text-dim);
+    font-size:0.85rem;
+    font-weight:500;
+    transition:all 0.25s ease;
+    white-space:nowrap;
+  }
+
+  .filter-btn:hover{
+    color:var(--text-main);
+    border-color:var(--neon-blue);
+    transform:translateY(-2px);
+  }
+
+  .filter-btn.active{
+    background:linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
+    color:#fff;
+    border-color:transparent;
+    box-shadow:0 0 15px rgba(255,46,196,0.45);
+  }
+
+  /* ===========================
+     ANIME CARD GRID
+  =========================== */
+  .anime-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(230px, 1fr));
+    gap:24px;
+  }
+
+  .anime-card{
+    background:var(--bg-panel);
+    border:1px solid var(--border-soft);
+    border-radius:16px;
+    overflow:hidden;
+    transition:transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    display:flex;
+    flex-direction:column;
+    animation:cardIn 0.4s ease both;
+  }
+
+  @keyframes cardIn{
+    from{opacity:0; transform:translateY(16px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  .anime-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 12px 30px rgba(139,47,255,0.3);
+    border-color:var(--neon-purple);
+  }
+
+  .anime-card .card-img{
+    position:relative;
+    width:100%;
+    aspect-ratio:3/4;
+    overflow:hidden;
+  }
+
+  .anime-card .card-img img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:transform 0.5s ease;
+  }
+
+  .anime-card:hover .card-img img{
+    transform:scale(1.08);
+  }
+
+  .card-rating{
+    position:absolute;
+    top:10px; inset-inline-end:10px;
+    background:rgba(10,7,19,0.8);
+    backdrop-filter:blur(4px);
+    color:#ffd76a;
+    font-size:0.8rem;
+    font-weight:600;
+    padding:4px 10px;
+    border-radius:999px;
+    border:1px solid rgba(255,215,106,0.4);
+  }
+
+  .card-body{
+    padding:16px 18px 20px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    flex:1;
+  }
+
+  .card-body h3{
+    font-size:1.05rem;
+    font-weight:600;
+  }
+
+  .card-genres{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+  }
+
+  .genre-tag{
+    font-size:0.7rem;
+    padding:3px 10px;
+    border-radius:999px;
+    background:rgba(47,216,255,0.12);
+    color:var(--neon-blue);
+    border:1px solid rgba(47,216,255,0.3);
+  }
+
+  .btn-details{
+    margin-top:auto;
+    padding:10px 0;
+    border-radius:10px;
+    background:var(--bg-panel-light);
+    color:var(--text-main);
+    font-weight:500;
+    font-size:0.85rem;
+    border:1px solid var(--border-soft);
+    transition:all 0.25s ease;
+    display:block;
+    text-align:center;
+  }
+
+  .btn-details:hover{
+    background:linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
+    border-color:transparent;
+    box-shadow:0 0 12px rgba(255,46,196,0.4);
+  }
+
+  .no-results{
+    text-align:center;
+    padding:40px 20px;
+    color:var(--text-dim);
+    grid-column:1/-1;
+  }
+
+  /* ===========================
+     CHARACTERS SECTION
+  =========================== */
+  .characters-scroll{
+    display:flex;
+    gap:22px;
+    overflow-x:auto;
+    padding-bottom:16px;
+    scroll-snap-type:x mandatory;
+  }
+
+  .char-card{
+    scroll-snap-align:start;
+    min-width:180px;
+    background:var(--bg-panel);
+    border:1px solid var(--border-soft);
+    border-radius:16px;
+    text-align:center;
+    padding:20px 14px 18px;
+    flex-shrink:0;
+    transition:transform 0.3s ease, border-color 0.3s ease;
+  }
+
+  .char-card:hover{
+    transform:translateY(-6px);
+    border-color:var(--neon-pink);
+  }
+
+  .char-avatar{
+    width:110px;
+    height:110px;
+    border-radius:50%;
+    overflow:hidden;
+    margin:0 auto 14px;
+    border:3px solid transparent;
+    background:linear-gradient(var(--bg-panel), var(--bg-panel)) padding-box,
+               linear-gradient(135deg, var(--neon-pink), var(--neon-blue)) border-box;
+  }
+
+  .char-avatar img{width:100%;height:100%;object-fit:cover;}
+
+  .char-card h4{font-size:1rem;margin-bottom:4px;}
+  .char-card p{font-size:0.8rem;color:var(--text-dim);}
+
+  /* ===========================
+     NEWS SECTION
+  =========================== */
+  .news-list{
+    display:grid;
+    gap:20px;
+  }
+
+  .news-item{
+    background:var(--bg-panel);
+    border:1px solid var(--border-soft);
+    border-inline-start:4px solid var(--neon-pink);
+    border-radius:12px;
+    padding:22px 26px;
+    transition:transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .news-item:hover{
+    transform:translateX(6px);
+    box-shadow:0 8px 20px rgba(255,46,196,0.15);
+  }
+
+  html[dir="rtl"] .news-item:hover{
+    transform:translateX(-6px);
+  }
+
+  .news-date{
+    font-size:0.78rem;
+    color:var(--neon-blue);
+    text-transform:uppercase;
+    letter-spacing:1px;
+    margin-bottom:6px;
+    display:block;
+  }
+
+  .news-item h3{
+    font-size:1.15rem;
+    margin-bottom:8px;
+  }
+
+  .news-item p{
+    color:var(--text-dim);
+    font-size:0.9rem;
+    line-height:1.8;
+  }
+
+  /* ===========================
+     ABOUT SECTION
+  =========================== */
+  .about-box{
+    background:var(--bg-panel);
+    border:1px solid var(--border-soft);
+    border-radius:20px;
+    padding:40px;
+    text-align:center;
+    max-width:800px;
+    margin:0 auto;
+  }
+
+  .about-box p{
+    color:var(--text-dim);
+    line-height:1.9;
+    font-size:1rem;
+  }
+
+  /* ===========================
+     AD BANNERS
+  =========================== */
+  .ad-banner{
+    margin:0 auto 20px;
+  }
+  .ad-banner-label{
+    font-size:0.68rem;
+    color:var(--text-dim);
+    text-align:center;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    margin-bottom:8px;
+    opacity:0.6;
+  }
+  .ad-banner a{
+    display:block;
+    border-radius:16px;
+    overflow:hidden;
+    border:1px solid var(--border-soft);
+    transition:transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .ad-banner a:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 24px rgba(139,47,255,0.25);
+  }
+  .ad-banner img{
+    width:100%;
+    display:block;
+    object-fit:cover;
+    max-height:220px;
+  }
+  .ad-embed-wrap{ width:100%; overflow:hidden; }
+
+  /* ===========================
+     FOOTER
+  =========================== */
+  footer{
+    background:var(--bg-panel);
+    border-top:1px solid var(--border-soft);
+    padding:40px 24px 30px;
+    text-align:center;
+  }
+
+  .footer-social{
+    display:flex;
+    justify-content:center;
+    gap:16px;
+    margin-bottom:20px;
+  }
+
+  .footer-social a{
+    width:42px;height:42px;
+    display:flex;align-items:center;justify-content:center;
+    border-radius:50%;
+    background:var(--bg-panel-light);
+    border:1px solid var(--border-soft);
+    transition:all 0.3s ease;
+  }
+
+  .footer-social a:hover{
+    background:linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+    transform:translateY(-4px);
+    box-shadow:0 0 15px rgba(255,46,196,0.5);
+  }
+
+  .footer-social svg{stroke:var(--text-main);width:18px;height:18px;}
+
+  footer p{
+    color:var(--text-dim);
+    font-size:0.85rem;
+  }
+
+  /* Back to top button */
+  #backToTop{
+    position:fixed;
+    bottom:28px;
+    inset-inline-end:28px;
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    background:linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+    color:#fff;
+    font-size:1.2rem;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:var(--shadow-glow);
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(20px);
+    transition:all 0.35s ease;
+    z-index:999;
+  }
+
+  #backToTop.show{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+  }
+
+  #backToTop:hover{transform:translateY(-4px) scale(1.05);}
+
+  /* ===========================
+     RESPONSIVE
+  =========================== */
+  @media (max-width:900px){
+    .navbar{ row-gap:12px; justify-content:flex-start; }
+    .logo{ order:1; }
+    .menu-toggle{ order:2; }
+    .lang-switch{ order:3; margin-inline-start:auto; }
+    .nav-links{
+      position:fixed;
+      top:64px; left:0; right:0;
+      background:var(--bg-panel);
+      flex-direction:column;
+      padding:20px 24px;
+      gap:18px;
+      border-bottom:1px solid var(--border-soft);
+      transform:translateY(-150%);
+      transition:transform 0.35s ease;
+      z-index:998;
+    }
+    .nav-links.open{transform:translateY(0);}
+    .menu-toggle{display:flex;}
+    .nav-search{
+      order:4;
+      flex-basis:100%;
+      width:100%;
+      min-width:0;
+    }
+  }
+
+  @media (max-width:600px){
+    html, body{ overflow-x:hidden; max-width:100%; }
+    .navbar{padding:12px 16px; gap:10px;}
+    .logo{ font-size:1.4rem; }
+    .nav-search{min-width:0;}
+    section{padding:56px 0;}
+    .about-box{padding:26px;}
+
+    .hero{ min-height:76vh; padding:48px 18px; }
+    .hero-content p{ font-size:0.92rem; }
+    .btn-primary{ padding:14px 30px; font-size:0.92rem; }
+
+    .filter-bar{ gap:8px; }
+    .filter-btn{ padding:8px 16px; font-size:0.78rem; }
+
+    .anime-grid{ grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:14px; }
+    .card-body{ padding:12px 14px 16px; }
+    .card-body h3{ font-size:0.92rem; }
+
+    .char-card{ min-width:145px; padding:16px 10px 14px; }
+    .char-avatar{ width:84px; height:84px; }
+
+    .news-item{ padding:18px 18px; }
+
+    .footer-social{ flex-wrap:wrap; }
+
+    #backToTop{ bottom:18px; inset-inline-end:18px; width:44px; height:44px; }
+  }
+
+  @media (max-width:420px){
+    .hero-content h1{ font-size:1.9rem; line-height:1.35; }
+    .anime-grid{ grid-template-columns:repeat(auto-fill, minmax(135px, 1fr)); gap:10px; }
+    .section-title{ font-size:1.6rem; }
+  }
+</style>
+
+<!-- Yektanet Native Ads -->
+<script>
+            !function(e,t,n){e.yektanetAnalyticsObject=n,e[n]=e[n]||function(){e[n].q.push(arguments)},e[n].q=e[n].q||[];var a=t.getElementsByTagName("head")[0],r=new Date,c="https://cdn.yektanet.com/superscript/ENbGcS2Q/native-no-data-47466/yn_pub.js?v="+r.getFullYear().toString()+"0"+r.getMonth()+"0"+r.getDate()+"0"+r.getHours(),s=t.createElement("link");s.rel="preload",s.as="script",s.href=c,a.appendChild(s);var l=t.createElement("script");l.async=!0,l.src=c,a.appendChild(l)}(window,document,"yektanet");
+        </script>
+</head>
+<body>
+
+<!-- ===========================
+     HEADER
+=========================== -->
+<header>
+  <nav class="navbar">
+    <a href="#home" class="logo">アニメ World</a>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home" data-i18n="navHome">Home</a></li>
+      <li><a href="#popular" data-i18n="navPopular">Popular Anime</a></li>
+      <li><a href="#characters" data-i18n="navCharacters">Characters</a></li>
+      <li><a href="#news" data-i18n="navNews">News</a></li>
+      <li><a href="#about" data-i18n="navAbout">About</a></li>
+    </ul>
+
+    <div class="nav-search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input type="text" id="searchInput" data-i18n-placeholder="searchPlaceholder" placeholder="Search anime...">
+    </div>
+
+    <!-- Language Switcher -->
+    <div class="lang-switch" id="langSwitch">
+      <button class="lang-btn active" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="fa">فا</button>
+    </div>
+  </nav>
+</header>
+
+<!-- ===========================
+     HERO SECTION
+=========================== -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <span class="eyebrow" data-i18n="heroEyebrow">Welcome to</span>
+    <h1 data-i18n-html="heroTitle">Discover Your Next <span>Anime Obsession</span></h1>
+    <p data-i18n="heroDesc">From epic isekai adventures to heartwarming slice-of-life stories — explore thousands of series, meet unforgettable characters, and stay updated with the latest anime news.</p>
+    <a href="#popular" class="btn-primary" data-i18n="heroBtn">Explore Now</a>
+  </div>
+</section>
+
+<!-- Ad slot: below hero -->
+<div class="container" id="adHeroSlot"></div>
+
+<!-- ===========================
+     POPULAR ANIME SECTION
+=========================== -->
+<section id="popular">
+  <div class="container">
+    <h2 class="section-title" data-i18n="popularTitle">Popular Anime</h2>
+    <p class="section-sub" data-i18n="popularSub">Filter by genre or search to find exactly what you're in the mood for.</p>
+
+    <!-- Genre Filter Buttons -->
+    <div class="filter-bar" id="filterBar"></div>
+
+    <!-- Anime Card Grid -->
+    <div class="anime-grid" id="animeGrid"></div>
+  </div>
+</section>
+
+<!-- Ad slot: between Popular Anime and Characters -->
+<div class="container" id="adFeedSlot"></div>
+
+<!-- ===========================
+     CHARACTERS SECTION
+=========================== -->
+<section id="characters">
+  <div class="container">
+    <h2 class="section-title" data-i18n="charTitle">Fan-Favorite Characters</h2>
+    <p class="section-sub" data-i18n="charSub">Meet the icons who defined the medium.</p>
+
+    <div class="characters-scroll" id="characterScroll"></div>
+  </div>
+</section>
+
+<!-- ===========================
+     NEWS SECTION
+=========================== -->
+<section id="news">
+  <div class="container">
+    <h2 class="section-title" data-i18n="newsTitle">Latest News</h2>
+    <p class="section-sub" data-i18n="newsSub">Stay in the loop with announcements and industry updates.</p>
+
+    <div class="news-list" id="newsList"></div>
+  </div>
+</section>
+
+<!-- ===========================
+     ABOUT SECTION
+=========================== -->
+<section id="about">
+  <div class="container">
+    <h2 class="section-title" style="display:block;text-align:center;" data-i18n="aboutTitle">About Anime World</h2>
+    <div class="about-box">
+      <p data-i18n="aboutText">Anime World is a fan-built hub for discovering series across every genre imaginable — from high-octane shonen battles to cozy slice-of-life stories. Our mission is simple: help you find the next show you'll love, learn about the characters that shaped the medium, and keep up with what's happening in the anime industry. This project is a demo built with HTML, CSS, and JavaScript to showcase responsive, interactive front-end design.</p>
+      <!-- ⚠️ Replace the href="#" below with your real donation link (Ko-fi, PayPal, Zarinpal, crypto wallet, etc.) -->
+      <a href="#" id="donateBtn" class="btn-primary" style="margin-top:24px;" data-i18n="aboutDonate">Support Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- Ad slot: above footer -->
+<div class="container" id="adFooterSlot"></div>
+
+<!-- ===========================
+     FOOTER
+=========================== -->
+<footer>
+  <div class="footer-social">
+    <a href="#" aria-label="Twitter"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a>
+    <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+    <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg></a>
+    <a href="#" aria-label="Discord"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="1"></circle><circle cx="15" cy="12" r="1"></circle><path d="M7.5 7.2S9 6 12 6s4.5 1.2 4.5 1.2M5 17c1.8 1 4 1.5 7 1.5s5.2-.5 7-1.5M4 9.5C4 7 6 5 6 5s1.5 3.5 2 4.7M20 9.5c0-2.5-2-4.5-2-4.5s-1.5 3.5-2 4.7M4 9.5c-.6 2-.6 5.5 0 7.5M20 9.5c.6 2 .6 5.5 0 7.5"></path></svg></a>
+  </div>
+  <p>&copy; <span id="year"></span> <span data-i18n="footerCopyright">Anime World. All rights reserved. Made for demo purposes.</span></p>
+</footer>
+
+<!-- Back to Top Button -->
+<button id="backToTop" aria-label="Back to top">↑</button>
+
+<script>
+/* =========================================================
+   UI TRANSLATIONS
+========================================================= */
+const uiText = {
+  en:{
+    navHome:"Home", navPopular:"Popular Anime", navCharacters:"Characters", navNews:"News", navAbout:"About",
+    searchPlaceholder:"Search anime...",
+    heroEyebrow:"Welcome to",
+    heroTitle:'Discover Your Next <span>Anime Obsession</span>',
+    heroDesc:"From epic isekai adventures to heartwarming slice-of-life stories — explore thousands of series, meet unforgettable characters, and stay updated with the latest anime news.",
+    heroBtn:"Explore Now",
+    popularTitle:"Popular Anime",
+    popularSub:"Filter by genre or search to find exactly what you're in the mood for.",
+    charTitle:"Fan-Favorite Characters",
+    charSub:"Meet the icons who defined the medium.",
+    newsTitle:"Latest News",
+    newsSub:"Stay in the loop with announcements and industry updates.",
+    aboutTitle:"About Anime World",
+    aboutText:"Anime World is run by Kitsune Noir Studio — a small, one-person team with one goal: helping anime fans who struggle to find subtitled, complete versions of the shows they love. The way we do that is simple — by putting anime in your hands for free. If you'd like to send some energy our way, your support means we can keep building cooler sites and apps like this one.",
+    aboutDonate:"Support Us",
+    detailsBtn:"View Details",
+    noResults:"No anime found matching your filters. Try a different genre or search term.",
+    footerCopyright:"Anime World. All rights reserved. Made for demo purposes."
+  },
+  fa:{
+    navHome:"خانه", navPopular:"انیمه‌های محبوب", navCharacters:"شخصیت‌ها", navNews:"اخبار", navAbout:"درباره ما",
+    searchPlaceholder:"جستجوی انیمه...",
+    heroEyebrow:"به دنیای انیمه خوش آمدید",
+    heroTitle:'انیمه بعدی مورد <span>علاقه‌تان</span> را کشف کنید',
+    heroDesc:"از ماجراجویی‌های حماسی ایسکای تا داستان‌های گرم زندگی روزمره — هزاران سریال را کاوش کنید، با شخصیت‌های فراموش‌نشدنی آشنا شوید و از آخرین اخبار دنیای انیمه باخبر باشید.",
+    heroBtn:"شروع کاوش",
+    popularTitle:"انیمه‌های محبوب",
+    popularSub:"با انتخاب ژانر یا جستجو، دقیقاً همان چیزی را پیدا کنید که دنبالش هستید.",
+    charTitle:"محبوب‌ترین شخصیت‌ها",
+    charSub:"با چهره‌های ماندگار این مدیوم آشنا شوید.",
+    newsTitle:"آخرین اخبار",
+    newsSub:"از تازه‌ترین اعلان‌ها و رویدادهای صنعت انیمه باخبر شوید.",
+    aboutTitle:"درباره‌ی Anime World",
+    aboutText:"Anime World رو یه تیم کوچیک و یک‌نفره به اسم استودیو کیتسونه نویر می‌گردونه؛ با یه هدف مشخص: کمک به طرفدارهای انیمه‌ای که نمی‌تونن انیمه‌های زیرنویس‌دار و کامل رو پیدا کنن. راه‌حلمون هم ساده‌ست: گذاشتن انیمه‌ها به‌صورت رایگان در اختیار شما. اگه دوست دارید بهمون انرژی بدید، حمایت شما یعنی می‌تونیم سایت‌ها و برنامه‌های خفن‌تری بسازیم.",
+    aboutDonate:"حمایت از ما",
+    detailsBtn:"مشاهده جزئیات",
+    noResults:"هیچ انیمه‌ای مطابق با فیلترهای شما پیدا نشد. ژانر یا عبارت جستجوی دیگری را امتحان کنید.",
+    footerCopyright:"Anime World. تمامی حقوق محفوظ است. ساخته‌شده برای اهداف نمایشی."
+  }
+};
+
+/* =========================================================
+   DATA — Hardcoded sample anime, characters, and news
+   (bilingual: en / fa)
+========================================================= */
+
+const genreList = ["All","Isekai","Action","Comedy","Romance","Fantasy","Adventure","Drama","Slice of Life","Sci-Fi","Horror","Mystery","Sports","Supernatural","School"];
+
+const genreLabels = {
+  "All":{en:"All", fa:"همه"},
+  "Isekai":{en:"Isekai", fa:"ایسکای"},
+  "Action":{en:"Action", fa:"اکشن"},
+  "Comedy":{en:"Comedy", fa:"کمدی"},
+  "Romance":{en:"Romance", fa:"عاشقانه"},
+  "Fantasy":{en:"Fantasy", fa:"فانتزی"},
+  "Adventure":{en:"Adventure", fa:"ماجراجویی"},
+  "Drama":{en:"Drama", fa:"درام"},
+  "Slice of Life":{en:"Slice of Life", fa:"زندگی روزمره"},
+  "Sci-Fi":{en:"Sci-Fi", fa:"علمی-تخیلی"},
+  "Horror":{en:"Horror", fa:"ترسناک"},
+  "Mystery":{en:"Mystery", fa:"معمایی"},
+  "Sports":{en:"Sports", fa:"ورزشی"},
+  "Supernatural":{en:"Supernatural", fa:"ماوراءالطبیعه"},
+  "School":{en:"School", fa:"مدرسه‌ای"}
+};
+
+const animeData = [
+  { id:"a27", title:{en:"Above Myriads (Wan Ren Zhi Shang)", fa:"فراتر از همگان"}, genres:["Action","Adventure","Fantasy","Comedy"], rating:null, img:"https://intocdn.top/wp-content/uploads/2026/07/kYN7CS46n2IkoP6eH1oTEoTy0ra.jpg" },
+  { id:"a28", title:{en:"From Old Country Bumpkin to Master Swordsman", fa:"از یک دهاتی به استاد شمشیرزنی"}, genres:["Action","Adventure","Fantasy"], rating:7.20, img:"https://intocdn.top/wp-content/uploads/2025/04/ujQp5egkJOkDHx4TehlgHePFcRv-scaled.jpg" },
+  { id:"a29", title:{en:"From Overshadowed to Overpowered", fa:"از سایه به قدرت"}, genres:["Fantasy","Action","Comedy","Isekai"], rating:8.70, img:"https://intocdn.top/wp-content/uploads/2026/07/p4TE3kK2iyuADfDYIRDTxjahdNa.jpg" },
+  { id:"a30", title:{en:"Hell Mode", fa:"حالت جهنمی"}, genres:["Action","Adventure","Fantasy","Isekai"], rating:7.00, img:"https://intocdn.top/wp-content/uploads/2026/02/kjeeFHqhEtv1HsRLlV4bQRpDzsU.jpg" },
+  { id:"a31", title:{en:"I Became a Legend after My 10 Year-Long Last Stand", fa:"افسانه شدم بعد از ۱۰ سال ایستادگی آخر"}, genres:["Fantasy","Adventure"], rating:7.60, img:"https://intocdn.top/wp-content/uploads/2026/07/4LaPshxWTFcBhc5ib8xOfYeD9tH.jpg" },
+  { id:"a32", title:{en:"Oni no Hanayome (The Demon's Bride)", fa:"عروس اونی"}, genres:["Fantasy","Romance","Supernatural"], rating:7.7, img:"https://intocdn.top/wp-content/uploads/2026/07/8grnaUpKFjvOP24oGlCtkPs1Yjn-360x480.jpg" },
+  { id:"a33", title:{en:"Rich Girl Caretaker", fa:"مراقب دختر ثروتمند"}, genres:["Romance","School"], rating:null, img:"https://intocdn.top/wp-content/uploads/2026/07/5vVcJljxO9z1Y5pt4f2axv4NFpb.jpg" },
+  { id:"a34", title:{en:"The Exiled Heavy Knight Knows How to Game the System", fa:"شوالیه‌ی سنگین تبعیدی بلد است سیستم را بازی کند"}, genres:["Action","Adventure","Fantasy","Isekai"], rating:7.40, img:"https://intocdn.top/wp-content/uploads/2026/07/bADzMfofNWYdxLnlqNuMkO6du34.jpg" },
+  { id:"a35", title:{en:"The Insipid Prince's Furtive Grab for the Throne", fa:"چنگ پنهانی شاهزاده‌ی کم‌استعداد برای تاج و تخت"}, genres:["Action","Adventure"], rating:9.00, img:"https://intocdn.top/wp-content/uploads/2026/07/1h0g4w6Vh0RenRga2bmtNXT08R0.jpg" },
+  { id:"a36", title:{en:"The Villager of Level 999", fa:"روستایی سطح ۹۹۹"}, genres:["Fantasy"], rating:6.62, img:"https://intocdn.top/wp-content/uploads/2026/07/pXnQuQyt7LUb62ZF9J6vDAcymIW.jpg" },
+  { id:"a37", title:{en:"The World's Strongest Rearguard", fa:"قوی‌ترین محافظ عقبه‌ی جهان"}, genres:["Action","Fantasy","Adventure","Comedy","Romance","Isekai"], rating:null, img:"https://panel.movietoon.shop/uploads/video_thumb/2447.jpg?1783591933" },
+  { id:"a38", title:{en:"Tomb Raider King", fa:"شاه غارتگر مقبره"}, genres:["Action","Adventure","Fantasy","Supernatural"], rating:6.89, img:"https://intocdn.top/wp-content/uploads/2026/07/xDW6cor12UD0b2IqboQWnrIn0UO-360x480.jpg" },
+  { id:"a39", title:{en:"Trapped in a Dating Sim", fa:"گیر افتاده در یک شبیه‌ساز قرار عاشقانه"}, genres:["Fantasy","Romance","Comedy","Isekai","School"], rating:7.30, img:"https://intocdn.top/wp-content/uploads/2026/07/zQInUzmgvT4MgysqSiW95YBkz1w.jpg" },
+  { id:"a40", title:{en:"Isekai Cheat Magician", fa:"جادوگر متقلب"}, genres:["Fantasy","Action","Adventure","Isekai"], rating:6.66, img:"https://panel.movietoon.shop/uploads/video_thumb/1301.jpg?1767620735" },
+  { id:"a41", title:{en:"Love Between Fairy and Devil", fa:"عشق بین پری و شیطان"}, genres:["Drama","Romance","Action"], rating:8.20, img:"https://panel.movietoon.shop/uploads/video_thumb/1567.jpg?1767093865" },
+  { id:"a42", title:{en:"Full-Time Sorcerer", fa:"جادوگر تمام وقت"}, genres:["Fantasy","Action","Adventure"], rating:8.1, img:"https://panel.movietoon.shop/uploads/video_thumb/2635.jpg?0" },
+  { id:"a43", title:{en:"GATE", fa:"دروازه گیت"}, genres:["Action","Adventure","Fantasy"], rating:7.68, img:"https://panel.movietoon.shop/uploads/video_thumb/338.jpg?1770133823" },
+  { id:"a44", title:{en:"Dorohedoro", fa:"دوروهدورو"}, genres:["Action","Comedy","Fantasy","Horror"], rating:8.05, img:"https://intocdn.top/wp-content/uploads/2026/05/mUkyHXRlOPCCCBgytIq6ZJO1EkM-360x480.jpg" },
+  { id:"a45", title:{en:"Yani Neko (Chainsmoker Cat)", fa:"گربه‌ی سیگاری (یانی نکو)"}, genres:["Comedy"], rating:7.10, img:"https://intocdn.top/wp-content/uploads/2026/07/kqeKlSd7o9BCbTraZsDnksRSfxm.jpg" },
+  { id:"a46", title:{en:"Solo Leveling", fa:"سولو لولینگ"}, genres:["Action","Fantasy","Sci-Fi"], rating:8.63, img:"https://panel.movietoon.shop/uploads/video_thumb/625.jpg?1769947251" },
+  { id:"a47", title:{en:"Quanzhi Fashi", fa:"مربی تمام وقت"}, genres:["Action","Fantasy","School"], rating:7.00, img:"https://panel.movietoon.shop/uploads/video_thumb/194.jpg?1770202371" },
+  { id:"a48", title:{en:"Kumo desu ga, Nani ka? (So I'm a Spider, So What?)", fa:"من یه عنکبوتم که چی"}, genres:["Action","Adventure","Comedy","Fantasy","Isekai"], rating:7.44, img:"https://panel.movietoon.shop/uploads/video_thumb/1911.jpg?1767017133" },
+  { id:"a49", title:{en:"Isekai Maou to Shoukan Shoujo (How NOT to Summon a Demon Lord)", fa:"چگونه ارباب شیاطین رو احضار نکنیم"}, genres:["Fantasy","Comedy","Action"], rating:7.47, img:"https://panel.movietoon.shop/uploads/video_thumb/907.jpg?1785685934" },
+  { id:"a50", title:{en:"Overlord", fa:"اوورلورد"}, genres:["Action","Adventure","Fantasy"], rating:8.00, img:"https://panel.movietoon.shop/uploads/video_thumb/1067.jpg?1767712463" },
+  { id:"a51", title:{en:"Shinchou Yuusha (The Cautious Hero)", fa:"قهرمان محتاط"}, genres:["Action","Adventure","Comedy","Fantasy","Isekai"], rating:7.48, img:"https://panel.movietoon.shop/uploads/video_thumb/1766.jpg?1767018798" },
+  { id:"a52", title:{en:"Tensei shitara Dragon no Tamago datta", fa:"تناسخ به عنوان اژدها"}, genres:["Adventure","Fantasy"], rating:6.30, img:"https://panel.movietoon.shop/uploads/video_thumb/2058.jpg?1769879982" },
+  { id:"a53", title:{en:"By the Grace of the Gods", fa:"با بخشایش خدایان"}, genres:["Fantasy","Isekai"], rating:7.44, img:"https://panel.movietoon.shop/uploads/video_thumb/351.jpg?1770132178" },
+  { id:"a54", title:{en:"Dandelion", fa:"قاصدک"}, genres:["Comedy","Supernatural","Fantasy","Drama"], rating:7.24, img:"https://intocdn.top/wp-content/uploads/2026/07/r5Cq5wax0sQ1ModcZXWKyXF1xpy-360x480.jpg" },
+  { id:"a55", title:{en:"Dead Account", fa:"حساب مرده"}, genres:["Action","Comedy","Drama","Horror","Supernatural"], rating:null, img:"https://intocdn.top/wp-content/uploads/2026/02/diE7sml8eNipdiZeDxwnLTSTYwy-360x480.jpg" }
+];
+
+const characterData = [
+  { name:{en:"Sung Jinwoo", fa:"سونگ جین‌وو"}, anime:{en:"Solo Leveling", fa:"سولو لولینگ"}, img:"https://picsum.photos/seed/char1/200/200" },
+  { name:{en:"Ainz Ooal Gown", fa:"عینز اوال گاون"}, anime:{en:"Overlord", fa:"اوورلورد"}, img:"https://picsum.photos/seed/char2/200/200" },
+  { name:{en:"Kaiman", fa:"کایمان"}, anime:{en:"Dorohedoro", fa:"دوروهدورو"}, img:"https://picsum.photos/seed/char3/200/200" },
+  { name:{en:"Kumoko (the Spider)", fa:"کوموکو (عنکبوت)"}, anime:{en:"Kumo desu ga, Nani ka?", fa:"من یه عنکبوتم که چی"}, img:"https://picsum.photos/seed/char4/200/200" },
+  { name:{en:"Tetsu", fa:"تتسو"}, anime:{en:"Dandelion", fa:"قاصدک"}, img:"https://picsum.photos/seed/char5/200/200" },
+  { name:{en:"Souji Anishiro", fa:"سوجی انیشیرو"}, anime:{en:"Dead Account", fa:"حساب مرده"}, img:"https://picsum.photos/seed/char6/200/200" }
+];
+
+const newsData = [
+  { title:{en:"Dragon Empress Saga Season 2 Confirmed", fa:"فصل دوم «حماسه ملکه اژدها» تأیید شد"},
+    date:{en:"July 28, 2026", fa:"۶ مرداد ۱۴۰۵"},
+    excerpt:{en:"The hit fantasy adventure series has officially been renewed, with the studio promising an even bigger scale for the upcoming arc.",
+             fa:"این سریال پرطرفدار فانتزی-ماجراجویی رسماً برای فصل جدید تمدید شد و استودیوی سازنده وعده داده مقیاسی بزرگ‌تر برای داستان پیش رو رقم بزند."} },
+  { title:{en:"Neon Horizon 2099 Breaks Streaming Records", fa:"«افق نئونی ۲۰۹۹» رکورد پخش را شکست"},
+    date:{en:"July 21, 2026", fa:"۳۰ تیر ۱۴۰۵"},
+    excerpt:{en:"The cyberpunk sci-fi hit became the most-watched simulcast premiere of the year within 48 hours of release.",
+             fa:"این اثر علمی‌تخیلی سایبرپانک ظرف ۴۸ ساعت پس از انتشار، به پربیننده‌ترین پخش هم‌زمان سال تبدیل شد."} },
+  { title:{en:"Studio Announces New Slice-of-Life Anthology", fa:"استودیو مجموعه‌ای جدید در ژانر زندگی روزمره اعلام کرد"},
+    date:{en:"July 12, 2026", fa:"۲۱ تیر ۱۴۰۵"},
+    excerpt:{en:"A collection of gentle, everyday stories is set to premiere next season, focusing on small towns and quiet friendships.",
+             fa:"مجموعه‌ای از داستان‌های آرام و روزمره با محوریت شهرهای کوچک و دوستی‌های ساده، فصل آینده پخش خواهد شد."} },
+  { title:{en:"Full Court Rivals Manga Passes 10 Million Copies", fa:"مانگای «رقیبان تمام‌زمین» از ۱۰ میلیون نسخه فروش گذشت"},
+    date:{en:"June 30, 2026", fa:"۹ تیر ۱۴۰۵"},
+    excerpt:{en:"The beloved sports drama's source manga has hit a major sales milestone worldwide, cementing its place among top sports titles.",
+             fa:"مانگای منبع این درام ورزشی محبوب به نقطه عطف مهمی در فروش جهانی رسید و جایگاه خود را در میان برترین آثار ورزشی تثبیت کرد."} },
+  { title:{en:"Crimson Fog Requiem Gets a Theatrical Sequel", fa:"دنباله سینمایی «سرود مه سرخ» ساخته می‌شود"},
+    date:{en:"June 18, 2026", fa:"۲۸ خرداد ۱۴۰۵"},
+    excerpt:{en:"Fans of the horror-supernatural hybrid can expect a feature film continuing the story, slated for a winter release.",
+             fa:"طرفداران این ترکیب ترسناک-ماوراءالطبیعه می‌توانند منتظر یک فیلم سینمایی برای ادامه داستان باشند که برای زمستان برنامه‌ریزی شده است."} }
+];
+
+/* =========================================================
+   ADS DATA — image banner ads OR embed codes (e.g. Yektanet)
+   type: "image" uses img+link. type: "code" uses the raw code.
+   Leave the relevant fields empty to hide that slot completely.
+========================================================= */
+const adsData = {
+  heroBanner:   { type:"image", img:"", link:"", code:`` },
+  feedBanner:   { type:"image", img:"", link:"", code:`` },
+  footerBanner: { type:"image", img:"", link:"", code:`` }
+};
+
+/* =========================================================
+   STATE
+========================================================= */
+let currentGenre = "All";
+let currentSearch = "";
+let currentLang = "en";
+
+/* =========================================================
+   LANGUAGE SWITCHING
+========================================================= */
+function applyLanguage(lang){
+  currentLang = lang;
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === "fa" ? "rtl" : "ltr";
+
+  // static text nodes
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if(uiText[lang][key] !== undefined) el.textContent = uiText[lang][key];
+  });
+
+  // html-containing text (hero title has a <span>)
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.getAttribute('data-i18n-html');
+    if(uiText[lang][key] !== undefined) el.innerHTML = uiText[lang][key];
+  });
+
+  // placeholders
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if(uiText[lang][key] !== undefined) el.placeholder = uiText[lang][key];
+  });
+
+  // active lang button
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === lang);
+  });
+
+  // re-render dynamic content in the new language
+  renderFilterBar();
+  renderAnimeGrid();
+  renderCharacters();
+  renderNews();
+  renderAds();
+}
+
+document.getElementById('langSwitch').addEventListener('click', (e) => {
+  const btn = e.target.closest('.lang-btn');
+  if(!btn) return;
+  applyLanguage(btn.dataset.lang);
+});
+
+/* =========================================================
+   RENDER: Filter Buttons
+========================================================= */
+const filterBar = document.getElementById('filterBar');
+
+function renderFilterBar(){
+  filterBar.innerHTML = '';
+  genreList.forEach(genre => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn' + (genre === currentGenre ? ' active' : '');
+    btn.textContent = genreLabels[genre][currentLang];
+    btn.dataset.genre = genre;
+    btn.addEventListener('click', () => {
+      currentGenre = genre;
+      renderFilterBar();
+      renderAnimeGrid();
+    });
+    filterBar.appendChild(btn);
+  });
+}
+
+/* =========================================================
+   RENDER: Anime Cards (respects genre + search filters together)
+========================================================= */
+const animeGrid = document.getElementById('animeGrid');
+
+function renderAnimeGrid(){
+  const search = currentSearch.trim().toLowerCase();
+
+  const filtered = animeData.filter(anime => {
+    const matchesGenre = currentGenre === 'All' || anime.genres.includes(currentGenre);
+    const titleEn = anime.title.en.toLowerCase();
+    const titleFa = anime.title.fa.toLowerCase();
+    const matchesSearch = search === '' || titleEn.includes(search) || titleFa.includes(search);
+    return matchesGenre && matchesSearch;
+  });
+
+  animeGrid.innerHTML = '';
+
+  if(filtered.length === 0){
+    animeGrid.innerHTML = `<p class="no-results">${uiText[currentLang].noResults}</p>`;
+    return;
+  }
+
+  filtered.forEach(anime => {
+    const card = document.createElement('div');
+    card.className = 'anime-card';
+    card.innerHTML = `
+      <div class="card-img">
+        <img src="${anime.img}" alt="${anime.title[currentLang]}" loading="lazy">
+        <span class="card-rating">★ ${anime.rating !== null ? anime.rating : (currentLang === 'fa' ? 'ثبت نشده' : 'N/A')}</span>
+      </div>
+      <div class="card-body">
+        <h3>${anime.title[currentLang]}</h3>
+        <div class="card-genres">
+          ${anime.genres.map(g => `<span class="genre-tag">${genreLabels[g][currentLang]}</span>`).join('')}
+        </div>
+        <a href="anime-details.html?id=${anime.id}" class="btn-details">${uiText[currentLang].detailsBtn}</a>
+      </div>
+    `;
+    animeGrid.appendChild(card);
+  });
+}
+
+/* =========================================================
+   SEARCH BAR — works together with genre filter
+========================================================= */
+const searchInput = document.getElementById('searchInput');
+searchInput.addEventListener('input', (e) => {
+  currentSearch = e.target.value;
+  renderAnimeGrid();
+});
+
+/* =========================================================
+   RENDER: Characters
+========================================================= */
+const characterScroll = document.getElementById('characterScroll');
+function renderCharacters(){
+  characterScroll.innerHTML = '';
+  characterData.forEach(char => {
+    const card = document.createElement('div');
+    card.className = 'char-card';
+    card.innerHTML = `
+      <div class="char-avatar">
+        <img src="${char.img}" alt="${char.name[currentLang]}" loading="lazy">
+      </div>
+      <h4>${char.name[currentLang]}</h4>
+      <p>${char.anime[currentLang]}</p>
+    `;
+    characterScroll.appendChild(card);
+  });
+}
+
+/* =========================================================
+   RENDER: News
+========================================================= */
+const newsList = document.getElementById('newsList');
+function renderNews(){
+  newsList.innerHTML = '';
+  newsData.forEach(item => {
+    const el = document.createElement('div');
+    el.className = 'news-item';
+    el.innerHTML = `
+      <span class="news-date">${item.date[currentLang]}</span>
+      <h3>${item.title[currentLang]}</h3>
+      <p>${item.excerpt[currentLang]}</p>
+    `;
+    newsList.appendChild(el);
+  });
+}
+
+/* =========================================================
+   MOBILE MENU TOGGLE
+========================================================= */
+const menuToggle = document.getElementById('menuToggle');
+const navLinks = document.getElementById('navLinks');
+
+menuToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+});
+
+navLinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+  });
+});
+
+/* =========================================================
+   BACK TO TOP BUTTON
+========================================================= */
+const backToTop = document.getElementById('backToTop');
+
+window.addEventListener('scroll', () => {
+  if(window.scrollY > 400){
+    backToTop.classList.add('show');
+  } else {
+    backToTop.classList.remove('show');
+  }
+});
+
+backToTop.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+/* =========================================================
+   FOOTER YEAR
+========================================================= */
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* =========================================================
+   AD BANNERS
+========================================================= */
+function injectEmbedCode(container, codeHtml){
+  container.innerHTML = codeHtml;
+  // Scripts inserted via innerHTML don't execute — recreate them so they actually run
+  const scripts = container.querySelectorAll('script');
+  scripts.forEach(oldScript => {
+    const newScript = document.createElement('script');
+    for(const attr of oldScript.attributes) newScript.setAttribute(attr.name, attr.value);
+    newScript.textContent = oldScript.textContent;
+    oldScript.parentNode.replaceChild(newScript, oldScript);
+  });
+}
+function renderAdSlot(elId, ad, label){
+  const el = document.getElementById(elId);
+  if(!ad){ el.innerHTML = ''; return; }
+
+  if(ad.type === 'code'){
+    if(!ad.code || !ad.code.trim()){ el.innerHTML = ''; return; }
+    el.innerHTML = `<div class="ad-banner"><div class="ad-banner-label">${label}</div><div class="ad-embed-wrap"></div></div>`;
+    injectEmbedCode(el.querySelector('.ad-embed-wrap'), ad.code);
+    return;
+  }
+
+  if(!ad.img || !ad.link){ el.innerHTML = ''; return; }
+  el.innerHTML = `
+    <div class="ad-banner">
+      <div class="ad-banner-label">${label}</div>
+      <a href="${ad.link}" target="_blank" rel="noopener sponsored">
+        <img src="${ad.img}" alt="Advertisement" loading="lazy">
+      </a>
+    </div>
+  `;
+}
+function renderAds(){
+  const label = currentLang === 'fa' ? 'تبلیغات' : 'Advertisement';
+  renderAdSlot('adHeroSlot', adsData.heroBanner, label);
+  renderAdSlot('adFeedSlot', adsData.feedBanner, label);
+  renderAdSlot('adFooterSlot', adsData.footerBanner, label);
+}
+
+/* =========================================================
+   INITIAL RENDER (default: English)
+========================================================= */
+applyLanguage('en');
+</script>
+
+</body>
+</html>
