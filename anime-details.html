@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anime World — Details</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Bangers&family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg-base:#0a0713;
+    --bg-panel:#140f22;
+    --bg-panel-light:#1c1530;
+    --neon-pink:#ff2ec4;
+    --neon-purple:#8b2fff;
+    --neon-blue:#2fd8ff;
+    --text-main:#f1eefc;
+    --text-dim:#a79cc7;
+    --border-soft:rgba(255,255,255,0.08);
+    --shadow-glow: 0 0 20px rgba(255,46,196,0.35), 0 0 40px rgba(139,47,255,0.2);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--bg-base);
+    color:var(--text-main);
+    font-family:'Poppins', sans-serif;
+    overflow-x:hidden;
+    background-image:
+      radial-gradient(circle at 10% 10%, rgba(139,47,255,0.12), transparent 40%),
+      radial-gradient(circle at 90% 20%, rgba(255,46,196,0.10), transparent 40%);
+  }
+
+  html[dir="rtl"] body{ font-family:'Vazirmatn', sans-serif; }
+  html[dir="rtl"] .logo{ font-family:'Vazirmatn', sans-serif; }
+
+  a{text-decoration:none;color:inherit;}
+  img{max-width:100%;display:block;}
+  button{font-family:inherit;cursor:pointer;border:none;}
+
+  ::-webkit-scrollbar{width:10px;}
+  ::-webkit-scrollbar-track{background:var(--bg-base);}
+  ::-webkit-scrollbar-thumb{background:linear-gradient(var(--neon-pink), var(--neon-purple));border-radius:10px;}
+
+  .container{width:100%;max-width:1000px;margin:0 auto;padding:0 24px;}
+
+  /* Header */
+  header{
+    position:sticky; top:0; z-index:1000;
+    background:rgba(10,7,19,0.85);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--border-soft);
+  }
+  .navbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 24px; max-width:1000px; margin:0 auto; gap:16px; flex-wrap:wrap;
+  }
+  .logo{
+    font-family:'Bangers', cursive; letter-spacing:2px; font-size:1.6rem;
+    background:linear-gradient(90deg, var(--neon-pink), var(--neon-purple), var(--neon-blue));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    flex-shrink:0;
+  }
+  .back-link{
+    display:flex; align-items:center; gap:8px;
+    font-size:0.9rem; font-weight:500; color:var(--text-dim);
+    transition:color 0.25s;
+  }
+  .back-link:hover{color:var(--neon-pink);}
+
+  .lang-switch{
+    display:flex; background:var(--bg-panel-light); border:1px solid var(--border-soft);
+    border-radius:999px; padding:4px; gap:2px; flex-shrink:0;
+  }
+  .lang-btn{
+    padding:6px 14px; border-radius:999px; background:transparent;
+    color:var(--text-dim); font-size:0.8rem; font-weight:600; transition:all 0.25s ease;
+  }
+  .lang-btn.active{
+    background:linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
+    color:#fff; box-shadow:0 0 10px rgba(255,46,196,0.4);
+  }
+
+  /* Hero banner for the anime */
+  .detail-hero{
+    position:relative;
+    min-height:46vh;
+    display:flex; align-items:flex-end;
+    padding:50px 24px 40px;
+    background-size:cover; background-position:center;
+  }
+  .detail-hero::before{
+    content:'';
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(10,7,19,0.2) 0%, rgba(10,7,19,0.97) 100%);
+  }
+  .detail-hero-inner{
+    position:relative; z-index:2; max-width:1000px; margin:0 auto; width:100%;
+  }
+  .detail-hero h1{
+    font-size:clamp(1.6rem, 4.5vw, 2.6rem);
+    font-weight:800; margin-bottom:10px; line-height:1.3;
+  }
+  .detail-meta{
+    display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:14px;
+  }
+  .detail-rating{
+    background:rgba(10,7,19,0.7); color:#ffd76a; font-weight:600;
+    padding:5px 14px; border-radius:999px; border:1px solid rgba(255,215,106,0.4);
+    font-size:0.9rem;
+  }
+  .detail-genre-tag{
+    font-size:0.75rem; padding:4px 12px; border-radius:999px;
+    background:rgba(47,216,255,0.12); color:var(--neon-blue);
+    border:1px solid rgba(47,216,255,0.3);
+  }
+
+  /* Body content */
+  .detail-body{ padding:50px 0 90px; }
+
+  .detail-card{
+    background:var(--bg-panel);
+    border:1px solid var(--border-soft);
+    border-radius:20px;
+    padding:32px;
+    margin-bottom:28px;
+  }
+
+  .detail-card h2{
+    font-size:1.3rem; margin-bottom:16px;
+    background:linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    display:inline-block;
+  }
+
+  .detail-card p{
+    color:var(--text-dim); line-height:1.9; font-size:1rem;
+  }
+
+  /* Download list */
+  .download-list{ display:flex; flex-direction:column; gap:14px; }
+  .season-tabs{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
+  .season-tab-btn{
+    padding:8px 20px; border-radius:999px; background:var(--bg-panel-light);
+    border:1px solid var(--border-soft); color:var(--text-dim); font-weight:600;
+    font-size:0.85rem; cursor:pointer; font-family:inherit; transition:all 0.2s;
+  }
+  .season-tab-btn.active{
+    background:linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
+    color:#fff; border-color:transparent; box-shadow:0 0 12px rgba(255,46,196,0.35);
+  }
+
+  .download-item{
+    background:var(--bg-panel-light);
+    border:1px solid var(--border-soft);
+    border-radius:14px;
+    overflow:hidden;
+    transition:border-color 0.25s ease;
+  }
+  .download-item:hover{ border-color:var(--neon-purple); }
+
+  .dl-header{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:16px; padding:16px 20px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .dl-quality{ font-weight:700; font-size:1rem; }
+
+  .dl-chevron{
+    width:18px; height:18px;
+    transition:transform 0.3s ease;
+    stroke:var(--text-dim);
+    flex-shrink:0;
+  }
+  .download-item.open .dl-chevron{ transform:rotate(180deg); }
+
+  .dl-panel{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height 0.4s ease, padding 0.4s ease;
+    padding:0 20px;
+  }
+  .download-item.open .dl-panel{
+    max-height:400px;
+    padding:0 20px 18px;
+  }
+
+  .ep-list{ display:flex; flex-direction:column; gap:10px; }
+  .coming-soon{
+    padding:16px 10px; text-align:center; color:var(--text-dim); font-size:0.85rem;
+    background:rgba(255,255,255,0.03); border-radius:10px; border:1px dashed var(--border-soft);
+  }
+  .ep-item{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:14px; padding:10px 14px;
+    background:rgba(255,255,255,0.03);
+    border:1px solid var(--border-soft);
+    border-radius:10px;
+  }
+  .ep-label{ font-size:0.9rem; color:var(--text-main); font-weight:500; }
+
+  .dl-btn{
+    display:inline-block;
+    padding:8px 22px; border-radius:999px;
+    background:linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
+    color:#fff; font-weight:600; font-size:0.8rem;
+    box-shadow:0 0 12px rgba(255,46,196,0.3);
+    transition:all 0.25s ease;
+  }
+  .dl-btn:hover{ transform:translateY(-2px) scale(1.03); box-shadow:0 0 20px rgba(255,46,196,0.5); }
+
+  .dl-note{
+    margin-top:16px; font-size:0.8rem; color:var(--text-dim);
+    padding:12px 16px; border-radius:10px;
+    background:rgba(47,216,255,0.06); border:1px dashed rgba(47,216,255,0.25);
+  }
+
+  /* Not found state */
+  .not-found{
+    text-align:center; padding:100px 24px;
+  }
+  .not-found h1{ font-size:2rem; margin-bottom:16px; }
+  .not-found p{ color:var(--text-dim); margin-bottom:24px; }
+  .btn-primary{
+    display:inline-block; padding:14px 34px; border-radius:999px;
+    background:linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
+    color:#fff; font-weight:600; box-shadow:var(--shadow-glow);
+    transition:transform 0.25s ease;
+  }
+  .btn-primary:hover{ transform:translateY(-3px); }
+
+  /* Ad banner */
+  .ad-banner{ margin:0 0 24px; }
+  .ad-banner-label{
+    font-size:0.68rem; color:var(--text-dim); text-align:center;
+    letter-spacing:1.5px; text-transform:uppercase; margin-bottom:8px; opacity:0.6;
+  }
+  .ad-banner a{
+    display:block; border-radius:16px; overflow:hidden;
+    border:1px solid var(--border-soft); transition:transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .ad-banner a:hover{ transform:translateY(-2px); box-shadow:0 8px 24px rgba(139,47,255,0.25); }
+  .ad-banner img{ width:100%; display:block; object-fit:cover; max-height:220px; }
+  .ad-embed-wrap{ width:100%; overflow:hidden; }
+
+  @media (max-width:600px){
+    html, body{ overflow-x:hidden; max-width:100%; }
+    .navbar{ padding:12px 16px; gap:10px; }
+    .logo{ font-size:1.25rem; }
+    .back-link{ font-size:0.8rem; flex-basis:100%; order:3; justify-content:center; }
+
+    .detail-hero{ min-height:36vh; padding:36px 16px 28px; }
+    .detail-hero h1{ font-size:1.4rem; }
+    .detail-rating{ font-size:0.8rem; padding:4px 12px; }
+    .detail-genre-tag{ font-size:0.7rem; }
+
+    .detail-card{ padding:20px 16px; }
+    .dl-header{ padding:14px 16px; }
+    .dl-quality{ font-size:0.92rem; }
+
+    .ep-item{ flex-wrap:wrap; gap:8px; }
+    .ep-label{ flex:1 1 auto; }
+    .dl-btn{ flex-shrink:0; }
+
+    .not-found{ padding:70px 18px; }
+    .not-found h1{ font-size:1.5rem; }
+  }
+</style>
+
+<!-- Yektanet Native Ads -->
+<script>
+            !function(e,t,n){e.yektanetAnalyticsObject=n,e[n]=e[n]||function(){e[n].q.push(arguments)},e[n].q=e[n].q||[];var a=t.getElementsByTagName("head")[0],r=new Date,c="https://cdn.yektanet.com/superscript/ENbGcS2Q/native-no-data-47466/yn_pub.js?v="+r.getFullYear().toString()+"0"+r.getMonth()+"0"+r.getDate()+"0"+r.getHours(),s=t.createElement("link");s.rel="preload",s.as="script",s.href=c,a.appendChild(s);var l=t.createElement("script");l.async=!0,l.src=c,a.appendChild(l)}(window,document,"yektanet");
+        </script>
+</head>
+<body>
+
+<header>
+  <nav class="navbar">
+    <a href="index.html" class="logo">アニメ World</a>
+    <a href="index.html" class="back-link" id="backLink">
+      <span>←</span> <span data-i18n="backToList">Back to all anime</span>
+    </a>
+    <div class="lang-switch" id="langSwitch">
+      <button class="lang-btn active" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="fa">فا</button>
+    </div>
+  </nav>
+</header>
+
+<div id="pageContent">
+  <!-- Filled by JS: either the anime detail view or a not-found view -->
+</div>
+
+<script>
+/* =========================================================
+   UI TEXT
+========================================================= */
+const uiText = {
+  en:{
+    backToList:"Back to all anime",
+    synopsisTitle:"Synopsis",
+    downloadsTitle:"Download Links",
+    notRated:"N/A",
+    notFoundTitle:"Anime Not Found",
+    notFoundText:"We couldn't find the anime you're looking for.",
+    notFoundBtn:"Back to Home",
+    downloadNote:"These are placeholder demo links. Replace them with your own hosted files or licensed streaming/download sources.",
+    comingSoon:"Coming soon"
+  },
+  fa:{
+    backToList:"بازگشت به همه‌ی انیمه‌ها",
+    synopsisTitle:"داستان",
+    downloadsTitle:"لینک‌های دانلود",
+    notRated:"ثبت نشده",
+    notFoundTitle:"انیمه پیدا نشد",
+    notFoundText:"متأسفانه انیمه‌ای که دنبالش بودید پیدا نشد.",
+    notFoundBtn:"بازگشت به صفحه اصلی",
+    downloadNote:"این لینک‌ها فقط نمونه‌ی نمایشی هستند. برای استفاده واقعی، آن‌ها را با فایل‌های میزبانی‌شده یا منابع قانونی خودتان جایگزین کنید.",
+    comingSoon:"به‌زودی گذاشته می‌شود"
+  }
+};
+
+/* =========================================================
+   ANIME DETAIL DATA
+   (id must match the id used on the main page's card links)
+========================================================= */
+const animeDetails = {
+  a27:{
+    title:{en:"Above Myriads (Wan Ren Zhi Shang)", fa:"فراتر از همگان"},
+    genres:["Action","Adventure","Fantasy","Comedy"], rating:null,
+    img:"https://intocdn.top/wp-content/uploads/2026/07/47UMMviU9zX88lY5JwuhtkhgPVI.jpg",
+    synopsis:{
+      en:"A cultivator determined to defy the heavens rises from the bottom of a cutthroat immortal world, forging alliances and enemies on the path to true strength.",
+      fa:"یک تمرین‌گر مصمم برای مبارزه با سرنوشت، از پایین‌ترین رده‌های دنیای بی‌رحم جاودانگان راهی می‌شود تا با اتحادها و دشمنی‌های بی‌شمار، به قدرت واقعی برسد."
+    },
+    downloads:[{season:1, qualities:[{quality:"1080p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"720p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"480p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]}]}]
+  },
+  a28:{
+    title:{en:"From Old Country Bumpkin to Master Swordsman", fa:"از یک دهاتی به استاد شمشیرزنی"},
+    genres:["Action","Adventure","Fantasy"], rating:7.20,
+    img:"https://intocdn.top/wp-content/uploads/2025/06/s2EagMcuLL3beaHc3ToiZicMuYSb-scaled-1.jpg",
+    synopsis:{
+      en:"A boy from a remote village discovers a hidden talent for the blade and sets out to become the greatest swordsman his world has ever seen.",
+      fa:"پسری از یک روستای دورافتاده استعداد پنهانش در شمشیرزنی را کشف می‌کند و راهی می‌شود تا به بزرگ‌ترین شمشیرزن دنیای خود تبدیل شود."
+    },
+    downloads:[{season:1, qualities:[{quality:"1080p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"720p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"480p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]}]}]
+  },
+  a29:{
+    title:{en:"From Overshadowed to Overpowered", fa:"از سایه به قدرت"},
+    genres:["Fantasy","Action","Comedy","Isekai"], rating:8.70,
+    img:"https://intocdn.top/wp-content/uploads/2026/07/szEFnQcjnaEDJrMO8cNnJIkh0Ob.jpg",
+    synopsis:{
+      en:"After a lifetime spent in his brilliant brother's shadow, a talentless sage gets a second chance at life and a power no one saw coming.",
+      fa:"بعد از یک عمر زندگی در سایه‌ی برادر باهوشش، یک فرزانه‌ی بی‌استعداد فرصت دوباره‌ای برای زندگی و قدرتی غیرمنتظره به دست می‌آورد."
+    },
+    downloads:[{season:1, qualities:[{quality:"1080p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"720p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"480p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]}]}]
+  },
+  a30:{
+    title:{en:"Hell Mode", fa:"حالت جهنمی"},
+    genres:["Action","Adventure","Fantasy","Isekai"], rating:7.00,
+    img:"https://intocdn.top/wp-content/uploads/2026/02/2H8sPrD90Osqw6tapFOAxBZ0sLW.jpg",
+    synopsis:{
+      en:"A veteran gamer stuck grinding an unbalanced MMO gets pulled into another world, where his brutal, unforgiving playstyle turns him into an unstoppable force.",
+      fa:"یک گیمر باتجربه که در یک بازی آنلاین نامتعادل گیر افتاده، به دنیایی دیگر کشیده می‌شود؛ جایی که سبک بازی سرسختانه‌اش او را به نیرویی شکست‌ناپذیر تبدیل می‌کند."
+    },
+    downloads:[{season:1, qualities:[{quality:"1080p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"720p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"480p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]}]}]
+  },
+  a31:{
+    title:{en:"I Became a Legend after My 10 Year-Long Last Stand", fa:"افسانه شدم بعد از ۱۰ سال ایستادگی آخر"},
+    genres:["Fantasy","Adventure"], rating:7.60,
+    img:"https://intocdn.top/wp-content/uploads/2026/07/ttcHr50V6A4JNKUlkIhhLsX9c04.jpg",
+    synopsis:{
+      en:"A soldier who held a hopeless front line alone for a decade finally returns home, only to discover the world now sees him as a living legend.",
+      fa:"سربازی که ده سال تمام، تنها از یک خط مقدم ناامیدکننده دفاع کرده، سرانجام به خانه بازمی‌گردد و می‌بیند که دنیا او را به‌عنوان یک افسانه‌ی زنده می‌شناسد."
+    },
+    downloads:[{season:1, qualities:[{quality:"1080p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"720p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"480p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]}]}]
+  },
+  a32:{
+    title:{en:"Oni no Hanayome (The Demon's Bride)", fa:"عروس اونی"},
+    genres:["Fantasy","Romance","Supernatural"], rating:7.7,
+    img:"https://intocdn.top/wp-content/uploads/2026/07/9LPCCMWBmuVg7wuU2hchw1kWLMW.jpg",
+    synopsis:{
+      en:"A young woman bound by an old promise finds herself drawn into the world of a powerful, otherworldly oni who claims her as his bride.",
+      fa:"زنی جوان که به یک عهد قدیمی متعهد است، خودش را در دنیای یک اونی قدرتمند و ماوراءالطبیعی پیدا می‌کند که او را به‌عنوان عروس خود می‌خواند."
+    },
+    downloads:[{season:1, qualities:[{quality:"1080p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"720p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"480p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]}]}]
+  },
+  a33:{
+    title:{en:"Rich Girl Caretaker", fa:"مراقب دختر ثروتمند"},
+    genres:["Romance","School"], rating:null,
+    img:"https://intocdn.top/wp-content/uploads/2026/07/5GF3fifAe3uElhci6TI09VHBMHA.jpg",
+    synopsis:{
+      en:"A student secretly hired as the personal caretaker of his school's most popular, wealthy girl must juggle his double life without anyone finding out.",
+      fa:"دانش‌آموزی که مخفیانه به‌عنوان مراقب شخصی محبوب‌ترین و ثروتمندترین دختر مدرسه استخدام شده، باید زندگی دوگانه‌اش را بدون لو رفتن مدیریت کند."
+    },
+    downloads:[{season:1, qualities:[{quality:"1080p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"720p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"480p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]}]}]
+  },
+  a34:{
+    title:{en:"The Exiled Heavy Knight Knows How to Game the System", fa:"شوالیه‌ی سنگین تبعیدی بلد است سیستم را بازی کند"},
+    genres:["Action","Adventure","Fantasy","Isekai"], rating:7.40,
+    img:"https://intocdn.top/wp-content/uploads/2026/07/3Ku9HXFDzpohlL2rgGSOugeNP0a.jpg",
+    synopsis:{
+      en:"Cast out and left for dead, a heavily-armored knight discovers a loophole in the world's rules that lets him grow stronger than anyone imagined.",
+      fa:"شوالیه‌ای سنگین‌زره که تبعید شده و به حال خود رها شده، راهی برای دور زدن قوانین دنیا پیدا می‌کند که او را قدرتمندتر از تصور همه می‌سازد."
+    },
+    downloads:[{season:1, qualities:[{quality:"1080p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"720p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"480p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]}]}]
+  },
+  a35:{
+    title:{en:"The Insipid Prince's Furtive Grab for the Throne", fa:"چنگ پنهانی شاهزاده‌ی کم‌استعداد برای تاج و تخت"},
+    genres:["Action","Adventure"], rating:9.00,
+    img:"https://intocdn.top/wp-content/uploads/2026/07/rbxKqzKkw9zrO9lKgqvXHOo4sZo.jpg",
+    synopsis:{
+      en:"Dismissed by the court as talentless, a quiet prince secretly maneuvers behind the scenes to seize a throne everyone thinks he could never have.",
+      fa:"شاهزاده‌ای آرام که دربار او را بی‌استعداد می‌داند، مخفیانه در پشت صحنه دست به کار می‌شود تا تاجی را تصاحب کند که همه فکر می‌کردند هرگز به آن نخواهد رسید."
+    },
+    downloads:[{season:1, qualities:[{quality:"1080p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"720p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"480p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]}]}]
+  },
+  a36:{
+    title:{en:"The Villager of Level 999", fa:"روستایی سطح ۹۹۹"},
+    genres:["Fantasy"], rating:6.62,
+    img:"https://panel.movietoon.shop/uploads/poster_image/2448.jpg?1784699764",
+    synopsis:{
+      en:"An ordinary villager who trained for centuries in secret finally steps into the world with strength far beyond any hero or demon lord.",
+      fa:"یک روستایی معمولی که قرن‌ها به‌طور مخفیانه تمرین کرده، سرانجام پا به دنیای بیرون می‌گذارد؛ با قدرتی فراتر از هر قهرمان یا ارباب شیاطینی."
+    },
+    downloads:[{season:1, qualities:[{quality:"1080p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"720p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"480p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]}]}]
+  },
+  a37:{
+    title:{en:"The World's Strongest Rearguard", fa:"قوی‌ترین محافظ عقبه‌ی جهان"},
+    genres:["Action","Fantasy","Adventure","Comedy","Romance","Isekai"], rating:null,
+    img:"https://panel.movietoon.shop/uploads/poster_image/2447.jpg?1783591933",
+    synopsis:{
+      en:"A support-class player thought too weak for real dungeons proves that positioning, strategy, and teamwork can outclass raw power.",
+      fa:"بازیکنی با کلاس پشتیبان که او را برای سیاه‌چال‌های واقعی ضعیف می‌دانستند، ثابت می‌کند که موقعیت‌یابی، استراتژی و کار تیمی می‌تواند از قدرت خام برتر باشد."
+    },
+    downloads:[{season:1, qualities:[{quality:"1080p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"720p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"480p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]}]}]
+  },
+  a38:{
+    title:{en:"Tomb Raider King", fa:"شاه غارتگر مقبره"},
+    genres:["Action","Adventure","Fantasy","Supernatural"], rating:6.89,
+    img:"https://intocdn.top/wp-content/uploads/2026/07/wK1SL5EUJ6Bq2UhDCRtT1FA1HdN.jpg",
+    synopsis:{
+      en:"A young treasure hunter descends into cursed, monster-filled tombs in search of relics powerful enough to change his fate forever.",
+      fa:"یک گنج‌یاب جوان به مقبره‌های نفرین‌شده و پر از هیولا وارد می‌شود تا آثاری بیابد که سرنوشتش را برای همیشه تغییر دهند."
+    },
+    downloads:[{season:1, qualities:[{quality:"1080p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"720p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"480p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]}]}]
+  },
+  a39:{
+    title:{en:"Trapped in a Dating Sim", fa:"گیر افتاده در یک شبیه‌ساز قرار عاشقانه"},
+    genres:["Fantasy","Romance","Comedy","Isekai","School"], rating:7.30,
+    img:"https://intocdn.top/wp-content/uploads/2026/07/G0XHWM0D3-backdrop_wide.jpg",
+    synopsis:{
+      en:"A man dies and wakes up as a minor background character inside the otome game he was playing — and every route seems to end badly for him.",
+      fa:"مردی می‌میرد و در نقش یک شخصیت فرعی درون همان بازی اوتومه‌ای که در حال بازی کردنش بود، بیدار می‌شود؛ جایی که هر مسیر داستانی برایش به بدترین شکل ممکن تمام می‌شود."
+    },
+    downloads:[{season:1, qualities:[{quality:"1080p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"720p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"480p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]}]}]
+  },
+  a40:{
+    title:{en:"Isekai Cheat Magician", fa:"جادوگر متقلب"},
+    genres:["Fantasy","Action","Adventure","Isekai"], rating:6.66,
+    img:"https://panel.movietoon.shop/uploads/poster_image/1301.jpg?1767620735",
+    synopsis:{
+      en:"Two high schoolers are pulled into another world and awaken with overpowered magic that puts them at the center of a brewing conflict between kingdoms.",
+      fa:"دو دانش‌آموز دبیرستانی به دنیایی دیگر کشیده می‌شوند و با جادویی فوق‌العاده قدرتمند بیدار می‌شوند که آن‌ها را در مرکز نزاعی میان پادشاهی‌ها قرار می‌دهد."
+    },
+    downloads:[{season:1, qualities:[{quality:"1080p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"720p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"480p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]}]}]
+  },
+  a41:{
+    title:{en:"Love Between Fairy and Devil", fa:"عشق بین پری و شیطان"},
+    genres:["Drama","Romance","Action"], rating:8.20,
+    img:"https://panel.movietoon.shop/uploads/poster_image/1567.jpg?1767093865",
+    synopsis:{
+      en:"A fairy raised to protect the world finds her fate intertwined with a powerful devil king, blurring the line between duty and forbidden love.",
+      fa:"یک پری که برای محافظت از دنیا پرورش یافته، سرنوشتش را با یک شاه اهریمن قدرتمند درهم‌تنیده می‌بیند؛ جایی که مرز میان وظیفه و عشقی ممنوعه محو می‌شود."
+    },
+    downloads:[{season:1, qualities:[{quality:"1080p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"720p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"480p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]}]}]
+  },
+  a42:{
+    title:{en:"Full-Time Sorcerer", fa:"جادوگر تمام وقت"},
+    genres:["Fantasy","Action","Adventure"], rating:8.1,
+    img:"https://panel.movietoon.shop/uploads/poster_image/2635.jpg?0",
+    synopsis:{
+      en:"A modern student gains rare magical abilities and must navigate a hidden world of sects, rivalries, and ancient power struggles.",
+      fa:"دانش‌آموزی امروزی به توانایی‌های جادویی کمیابی دست می‌یابد و باید در دنیای پنهان فرقه‌ها، رقابت‌ها و نزاع‌های قدرت باستانی راه خود را پیدا کند."
+    },
+    downloads:[{season:1, qualities:[{quality:"1080p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"720p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"480p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]}]}]
+  },
+  a43:{
+    title:{en:"GATE", fa:"دروازه گیت"},
+    genres:["Action","Adventure","Fantasy"], rating:7.68,
+    img:"https://panel.movietoon.shop/uploads/poster_image/338.jpg?1770133823",
+    synopsis:{
+      en:"When a mysterious gate opens in the middle of Tokyo and unleashes a medieval army, a small defense force ends up crossing into a fantasy world on the other side.",
+      fa:"وقتی دروازه‌ای مرموز در میان توکیو باز می‌شود و ارتشی قرون‌وسطایی را روانه می‌کند، یک نیروی دفاعی کوچک سر از دنیایی فانتزی در آن‌سوی دروازه درمی‌آورد."
+    },
+    downloads:[{season:1, qualities:[{quality:"1080p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"720p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"480p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]}]}]
+  },
+  a44:{
+    title:{en:"Dorohedoro", fa:"دوروهدورو"},
+    genres:["Action","Comedy","Fantasy","Horror"], rating:8.05,
+    img:"https://intocdn.top/wp-content/uploads/2026/05/vvAZwI5Kd4n3PI7ZrXjYpBEgpp0.jpg",
+    synopsis:{
+      en:"In a grim, monster-plagued district, a man with a reptile head and no memory hunts down the sorcerer responsible for his condition.",
+      fa:"در محله‌ای تیره و پر از هیولا، مردی با سری شبیه خزنده و بدون هیچ خاطره‌ای، به دنبال جادوگری می‌گردد که مسئول وضعیت اوست."
+    },
+    downloads:[{season:1, qualities:[{quality:"1080p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"720p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"480p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]}]}]
+  },
+  a45:{
+    title:{en:"Yani Neko (Chainsmoker Cat)", fa:"گربه‌ی سیگاری (یانی نکو)"},
+    genres:["Comedy"], rating:7.10,
+    img:"https://intocdn.top/wp-content/uploads/2026/07/cat3.jpg",
+    synopsis:{
+      en:"A laid-back comedy following the daily antics of a chain-smoking cat and the humans unlucky enough to share a household with it.",
+      fa:"یک کمدی آرام درباره‌ی ماجراهای روزمره‌ی یک گربه‌ی سیگاری و انسان‌هایی که بدشانس بودند در یک خانه با او زندگی کنند."
+    },
+    downloads:[{season:1, qualities:[{quality:"1080p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"720p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"480p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]}]}]
+  },
+  a46:{
+    title:{en:"Solo Leveling", fa:"سولو لولینگ"},
+    genres:["Action","Fantasy","Sci-Fi"], rating:8.63,
+    img:"https://panel.movietoon.shop/uploads/poster_image/625.jpg?1769947251",
+    synopsis:{
+      en:"The weakest hunter alive gains a mysterious system that lets him grow stronger with every battle, transforming him into the only one capable of leveling up endlessly.",
+      fa:"ضعیف‌ترین شکارچی دنیا به سیستمی مرموز دست می‌یابد که به او اجازه می‌دهد با هر نبرد قوی‌تر شود و به تنها کسی تبدیل شود که می‌تواند بی‌پایان سطح خود را بالا ببرد."
+    },
+    downloads:[{season:1, qualities:[{quality:"1080p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"720p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"480p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]}]}]
+  },
+  a47:{
+    title:{en:"Quanzhi Fashi", fa:"مربی تمام وقت"},
+    genres:["Action","Fantasy","School"], rating:7.00,
+    img:"https://panel.movietoon.shop/uploads/poster_image/194.jpg?1770202371",
+    synopsis:{
+      en:"In a modern world where magic exists alongside science, a young man enrolls at a magic academy and quickly rises through its ranks of gifted students.",
+      fa:"در دنیایی مدرن که جادو در کنار علم وجود دارد، مردی جوان در یک آکادمی جادو ثبت‌نام می‌کند و به‌سرعت در میان دانش‌آموزان بااستعداد آن پیشرفت می‌کند."
+    },
+    downloads:[{season:1, qualities:[{quality:"1080p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"720p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"480p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]}]}]
+  },
+  a48:{
+    title:{en:"Kumo desu ga, Nani ka? (So I'm a Spider, So What?)", fa:"من یه عنکبوتم که چی"},
+    genres:["Action","Adventure","Comedy","Fantasy","Isekai"], rating:7.44,
+    img:"https://panel.movietoon.shop/uploads/poster_image/1911.jpg?1767017133",
+    synopsis:{
+      en:"A high school girl is reincarnated as a lowly spider deep in a monster-filled dungeon and must survive using nothing but wits and raw stubbornness.",
+      fa:"یک دختر دبیرستانی به شکل عنکبوتی حقیر در اعماق یک سیاه‌چال پر از هیولا تناسخ می‌یابد و باید تنها با هوش و لجاجت خام زنده بماند."
+    },
+    downloads:[{season:1, qualities:[{quality:"1080p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"720p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"480p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]}]}]
+  },
+  a49:{
+    title:{en:"Isekai Maou to Shoukan Shoujo (How NOT to Summon a Demon Lord)", fa:"چگونه ارباب شیاطین رو احضار نکنیم"},
+    genres:["Fantasy","Comedy","Action"], rating:7.47,
+    img:"https://panel.movietoon.shop/uploads/poster_image/907.jpg?1785685934",
+    synopsis:{
+      en:"A powerful demon lord summoned into another world flips the script on his would-be captors, turning the tables with overwhelming magical dominance.",
+      fa:"یک ارباب شیاطین قدرتمند که به دنیایی دیگر احضار شده، بازی را برای کسانی که قصد اسیر کردنش را داشتند برعکس می‌کند و با تسلط جادویی خردکننده‌ای اوضاع را در دست می‌گیرد."
+    },
+    downloads:[{season:1, qualities:[{quality:"1080p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"720p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"480p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]}]}]
+  },
+  a50:{
+    title:{en:"Overlord", fa:"اوورلورد"},
+    genres:["Action","Adventure","Fantasy"], rating:8.00,
+    img:"https://panel.movietoon.shop/uploads/poster_image/1067.jpg?1767712463",
+    synopsis:{
+      en:"A veteran gamer finds himself trapped inside his favorite MMORPG as his undead overlord avatar, now very much alive in a world that no longer feels like a game.",
+      fa:"یک گیمر باتجربه خودش را داخل بازی آنلاین مورد علاقه‌اش گیر افتاده می‌بیند؛ این‌بار در قالب آواتار ارباب مرده‌ی متحرکش، در دنیایی که دیگر شبیه یک بازی نیست."
+    },
+    downloads:[{season:1, qualities:[{quality:"1080p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"720p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"480p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]}]}]
+  },
+  a51:{
+    title:{en:"Shinchou Yuusha (The Cautious Hero)", fa:"قهرمان محتاط"},
+    genres:["Action","Adventure","Comedy","Fantasy","Isekai"], rating:7.48,
+    img:"https://panel.movietoon.shop/uploads/poster_image/1766.jpg?1767018798",
+    synopsis:{
+      en:"Summoned to save a world he doesn't quite trust yet, an absurdly cautious hero prepares obsessively for every possible danger before taking a single step.",
+      fa:"قهرمانی که برای نجات دنیایی احضار شده که هنوز به آن اعتماد کامل ندارد، به‌طرز عجیبی محتاطانه و با آماده‌سازی وسواس‌گونه برای هر خطر ممکن، پیش از هر قدم عمل می‌کند."
+    },
+    downloads:[{season:1, qualities:[{quality:"1080p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"720p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"480p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]}]}]
+  },
+  a52:{
+    title:{en:"Tensei shitara Dragon no Tamago datta", fa:"تناسخ به عنوان اژدها"},
+    genres:["Adventure","Fantasy"], rating:6.30,
+    img:"https://panel.movietoon.shop/uploads/poster_image/2058.jpg?1769879982",
+    synopsis:{
+      en:"Reincarnated as a dragon's egg with nothing to do but wait, a former human spends years observing the world and preparing for the life that awaits after hatching.",
+      fa:"تناسخ‌یافته در قالب تخم یک اژدها و بدون کاری جز انتظار، انسانی سابق سال‌ها به مشاهده‌ی دنیا می‌پردازد و برای زندگی پس از تفریخ آماده می‌شود."
+    },
+    downloads:[{season:1, qualities:[{quality:"1080p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"720p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"480p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]}]}]
+  },
+  a53:{
+    title:{en:"By the Grace of the Gods", fa:"با بخشایش خدایان"},
+    genres:["Fantasy","Isekai"], rating:7.44,
+    img:"https://panel.movietoon.shop/uploads/poster_image/351.jpg?1770132178",
+    synopsis:{
+      en:"Reincarnated as a child in a peaceful fantasy world, a former office worker spends his new life exploring nature, making friends, and enjoying a slower pace of living.",
+      fa:"تناسخ‌یافته در قالب کودکی در دنیایی فانتزی و آرام، یک کارمند سابق زندگی جدیدش را با کاوش در طبیعت، دوست‌یابی و لذت بردن از سرعت آرام‌تر زندگی می‌گذراند."
+    },
+    downloads:[{season:1, qualities:[{quality:"1080p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"720p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"480p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]}]}]
+  },
+  a54:{
+    title:{en:"Dandelion", fa:"قاصدک"},
+    genres:["Comedy","Supernatural","Fantasy","Drama"], rating:7.24,
+    img:"https://intocdn.top/wp-content/uploads/2026/07/v8dnBVnuINt8g1n0NvEADxZ3NXV.jpg",
+    synopsis:{
+      en:"Two rookie angels, Tetsu and Misaki, are tasked with finding the wandering spirits of the dead and guiding them to peace. But instead of rushing through their duties, they take the time to listen to each spirit's story and help resolve the regrets and unfinished business left behind in life.",
+      fa:"دو فرشتهٔ تازه‌کار به نام‌های تتسو و میساکی، وظیفه دارند ارواح سرگردان مردگان رو پیدا کنن و به آرامش برسونن. ولی به‌جای اینکه کار رو سریع تموم کنن، به حرف‌های هر روح گوش می‌دن و سعی می‌کنن مشکلات و حسرت‌های دنیوی‌شون رو حل کنن."
+    },
+    downloads:[{season:1, qualities:[{quality:"1080p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"720p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"480p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]}]}]
+  },
+  a55:{
+    title:{en:"Dead Account", fa:"حساب مرده"},
+    genres:["Action","Comedy","Drama","Horror","Supernatural"], rating:null,
+    img:"https://intocdn.top/wp-content/uploads/2026/02/pDQ9P84InNrBN1hDTCjhQ1dN1kO.jpg",
+    synopsis:{
+      en:"As account spirits begin appearing in the real world, a controversial streamer named Souji Anishiro makes increasingly provocative videos to cover his sick sister's medical expenses. But when a digital spirit attacks her, his own supernatural powers awaken, pulling him into Meiden Academy — a school training a new generation of exorcists to fight these internet spirits.",
+      fa:"روح‌های اکانت در دنیای واقعی ظاهر می‌شوند و یک استریمر جنجالی به نام «سوجی انیشیرو» برای تأمین هزینه‌های درمانی خواهر بیمارش، ویدیوهای تحریک‌آمیز می‌سازد. اما وقتی یک روح دیجیتال به خواهرش حمله می‌کند، توانایی‌های فراطبیعی‌اش بیدار می‌شود و وارد «آکادمی میدن» می‌شود؛ مدرسه‌ای که در آن نسل جدیدی از ارواح‌زدایان برای مبارزه با این ارواح اینترنتی تربیت می‌شوند."
+    },
+    downloads:[{season:1, qualities:[{quality:"1080p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"720p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]},{quality:"480p", episodes:[{ep:1, url:"#"},{ep:2, url:"#"},{ep:3, url:"#"}]}]}]
+  }
+};
+
+const genreLabels = {
+  "Isekai":{en:"Isekai", fa:"ایسکای"}, "Action":{en:"Action", fa:"اکشن"}, "Comedy":{en:"Comedy", fa:"کمدی"},
+  "Romance":{en:"Romance", fa:"عاشقانه"}, "Fantasy":{en:"Fantasy", fa:"فانتزی"}, "Adventure":{en:"Adventure", fa:"ماجراجویی"},
+  "Drama":{en:"Drama", fa:"درام"}, "Slice of Life":{en:"Slice of Life", fa:"زندگی روزمره"}, "Sci-Fi":{en:"Sci-Fi", fa:"علمی-تخیلی"},
+  "Horror":{en:"Horror", fa:"ترسناک"}, "Mystery":{en:"Mystery", fa:"معمایی"}, "Sports":{en:"Sports", fa:"ورزشی"},
+  "Supernatural":{en:"Supernatural", fa:"ماوراءالطبیعه"}, "School":{en:"School", fa:"مدرسه‌ای"}
+};
+
+/* =========================================================
+   ADS DATA — image banner ad OR embed code (e.g. Yektanet)
+   Leave the relevant fields empty to hide this slot completely.
+========================================================= */
+const adsData = {
+  detailBanner: { type:"image", img:"", link:"", code:`` }
+};
+function injectEmbedCode(container, codeHtml){
+  container.innerHTML = codeHtml;
+  const scripts = container.querySelectorAll('script');
+  scripts.forEach(oldScript => {
+    const newScript = document.createElement('script');
+    for(const attr of oldScript.attributes) newScript.setAttribute(attr.name, attr.value);
+    newScript.textContent = oldScript.textContent;
+    oldScript.parentNode.replaceChild(newScript, oldScript);
+  });
+}
+function renderAdSlot(elId, ad, label){
+  const el = document.getElementById(elId);
+  if(!el) return;
+  if(!ad){ el.innerHTML = ''; return; }
+
+  if(ad.type === 'code'){
+    if(!ad.code || !ad.code.trim()){ el.innerHTML = ''; return; }
+    el.innerHTML = `<div class="ad-banner"><div class="ad-banner-label">${label}</div><div class="ad-embed-wrap"></div></div>`;
+    injectEmbedCode(el.querySelector('.ad-embed-wrap'), ad.code);
+    return;
+  }
+
+  if(!ad.img || !ad.link){ el.innerHTML = ''; return; }
+  el.innerHTML = `
+    <div class="ad-banner">
+      <div class="ad-banner-label">${label}</div>
+      <a href="${ad.link}" target="_blank" rel="noopener sponsored">
+        <img src="${ad.img}" alt="Advertisement" loading="lazy">
+      </a>
+    </div>
+  `;
+}
+
+/* =========================================================
+   STATE + HELPERS
+========================================================= */
+let currentLang = "en";
+
+function getQueryParam(name){
+  const params = new URLSearchParams(window.location.search);
+  return params.get(name);
+}
+
+const pageContent = document.getElementById('pageContent');
+const animeId = getQueryParam('id');
+const anime = animeId ? animeDetails[animeId] : null;
+
+function renderPage(){
+  if(!anime){
+    pageContent.innerHTML = `
+      <div class="not-found">
+        <h1>${uiText[currentLang].notFoundTitle}</h1>
+        <p>${uiText[currentLang].notFoundText}</p>
+        <a href="index.html" class="btn-primary">${uiText[currentLang].notFoundBtn}</a>
+      </div>
+    `;
+    return;
+  }
+
+  const ratingDisplay = anime.rating !== null ? `★ ${anime.rating}` : uiText[currentLang].notRated;
+
+  pageContent.innerHTML = `
+    <section class="detail-hero" style="background-image:url('${anime.img}')">
+      <div class="detail-hero-inner">
+        <h1>${anime.title[currentLang]}</h1>
+        <div class="detail-meta">
+          <span class="detail-rating">${ratingDisplay}</span>
+          ${anime.genres.map(g => `<span class="detail-genre-tag">${genreLabels[g] ? genreLabels[g][currentLang] : g}</span>`).join('')}
+        </div>
+      </div>
+    </section>
+
+    <div class="detail-body">
+      <div class="container">
+        <div id="adDetailSlot"></div>
+
+        <div class="detail-card">
+          <h2>${uiText[currentLang].synopsisTitle}</h2>
+          <p>${anime.synopsis[currentLang]}</p>
+        </div>
+
+        <div class="detail-card">
+          <h2>${uiText[currentLang].downloadsTitle}</h2>
+          ${anime.downloads.length > 1 ? `
+            <div class="season-tabs" id="seasonTabs">
+              ${anime.downloads.map((s,i) => `
+                <button class="season-tab-btn ${i===0?'active':''}" data-season-index="${i}" onclick="selectSeason(${i})">
+                  ${currentLang === 'fa' ? 'فصل ' + s.season.toLocaleString('fa-IR') : 'Season ' + s.season}
+                </button>
+              `).join('')}
+            </div>
+          ` : ''}
+          <div class="download-list" id="downloadListContainer"></div>
+          <p class="dl-note">${uiText[currentLang].downloadNote}</p>
+        </div>
+      </div>
+    </div>
+  `;
+
+  currentSeasonIndex = 0;
+  renderDownloadList();
+  renderAdSlot('adDetailSlot', adsData.detailBanner, currentLang === 'fa' ? 'تبلیغات' : 'Advertisement');
+}
+
+let currentSeasonIndex = 0;
+
+function selectSeason(idx){
+  currentSeasonIndex = idx;
+  document.querySelectorAll('.season-tab-btn').forEach((btn,i) => btn.classList.toggle('active', i===idx));
+  renderDownloadList();
+}
+
+function renderDownloadList(){
+  const container = document.getElementById('downloadListContainer');
+  if(!container || !anime) return;
+  const season = anime.downloads[currentSeasonIndex];
+  if(!season){ container.innerHTML = ''; return; }
+
+  container.innerHTML = season.qualities.map(d => {
+    const visibleEpisodes = (d.episodes || []).filter(e => !e.hidden);
+    const panelBody = visibleEpisodes.length > 0
+      ? `<div class="ep-list">
+          ${visibleEpisodes.map(e => `
+            <div class="ep-item">
+              <span class="ep-label">${currentLang === 'fa' ? 'قسمت ' + e.ep : 'Episode ' + e.ep}</span>
+              <a href="${e.url}" class="dl-btn" onclick="event.stopPropagation(); return false;">${currentLang === 'fa' ? 'دانلود' : 'Download'}</a>
+            </div>
+          `).join('')}
+        </div>`
+      : `<div class="coming-soon">${uiText[currentLang].comingSoon}</div>`;
+    return `
+      <div class="download-item">
+        <div class="dl-header" onclick="this.parentElement.classList.toggle('open')">
+          <span class="dl-quality">${d.quality}</span>
+          <svg class="dl-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+        <div class="dl-panel">${panelBody}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+/* =========================================================
+   LANGUAGE SWITCHING
+========================================================= */
+function applyLanguage(lang){
+  currentLang = lang;
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === "fa" ? "rtl" : "ltr";
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if(uiText[lang][key] !== undefined) el.textContent = uiText[lang][key];
+  });
+
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === lang);
+  });
+
+  renderPage();
+}
+
+document.getElementById('langSwitch').addEventListener('click', (e) => {
+  const btn = e.target.closest('.lang-btn');
+  if(!btn) return;
+  applyLanguage(btn.dataset.lang);
+});
+
+/* Initial render */
+applyLanguage('en');
+</script>
+
+</body>
+</html>
