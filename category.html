@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anime World — زیرنویس</title>
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Bangers&family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* ===========================
+     ROOT VARIABLES / THEME
+  =========================== */
+  :root{
+    --bg-base:#0a0713;
+    --bg-panel:#140f22;
+    --bg-panel-light:#1c1530;
+    --neon-pink:#ff2ec4;
+    --neon-purple:#8b2fff;
+    --neon-blue:#2fd8ff;
+    --text-main:#f1eefc;
+    --text-dim:#a79cc7;
+    --border-soft:rgba(255,255,255,0.08);
+    --shadow-glow: 0 0 20px rgba(255,46,196,0.35), 0 0 40px rgba(139,47,255,0.2);
+    --font-main:'Poppins', sans-serif;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--bg-base);
+    color:var(--text-main);
+    font-family:var(--font-main);
+    overflow-x:hidden;
+    background-image:
+      radial-gradient(circle at 10% 10%, rgba(139,47,255,0.12), transparent 40%),
+      radial-gradient(circle at 90% 20%, rgba(255,46,196,0.10), transparent 40%),
+      radial-gradient(circle at 50% 90%, rgba(47,216,255,0.08), transparent 40%);
+    transition:font-family 0.2s;
+  }
+
+  /* Persian mode uses Vazirmatn everywhere */
+  html[dir="rtl"] body{
+    font-family:'Vazirmatn', sans-serif;
+  }
+  html[dir="rtl"] .logo{
+    font-family:'Vazirmatn', sans-serif;
+  }
+
+  a{text-decoration:none;color:inherit;}
+  ul{list-style:none;}
+  img{max-width:100%;display:block;}
+  button{font-family:inherit;cursor:pointer;border:none;}
+
+  ::-webkit-scrollbar{width:10px;height:10px;}
+  ::-webkit-scrollbar-track{background:var(--bg-base);}
+  ::-webkit-scrollbar-thumb{background:linear-gradient(var(--neon-pink), var(--neon-purple));border-radius:10px;}
+
+  .container{
+    width:100%;
+    max-width:1200px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  .section-title{
+    font-size:2rem;
+    font-weight:700;
+    margin-bottom:8px;
+    background:linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    display:inline-block;
+  }
+
+  .section-sub{
+    color:var(--text-dim);
+    margin-bottom:32px;
+    font-size:0.95rem;
+  }
+
+  /* ===========================
+     HEADER / NAVBAR
+  =========================== */
+  header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:rgba(10,7,19,0.85);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--border-soft);
+  }
+
+  .navbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:14px 24px;
+    max-width:1200px;
+    margin:0 auto;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+
+  .logo{
+    font-family:'Bangers', cursive;
+    letter-spacing:2px;
+    font-size:1.8rem;
+    background:linear-gradient(90deg, var(--neon-pink), var(--neon-purple), var(--neon-blue));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    white-space:nowrap;
+  }
+
+  .nav-links{
+    display:flex;
+    gap:28px;
+    align-items:center;
+  }
+
+  .nav-links a{
+    font-weight:500;
+    font-size:0.95rem;
+    color:var(--text-main);
+    position:relative;
+    padding:6px 2px;
+    transition:color 0.3s;
+    white-space:nowrap;
+  }
+
+  .nav-links a::after{
+    content:'';
+    position:absolute;
+    left:0; bottom:0;
+    width:0%;
+    height:2px;
+    background:linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
+    transition:width 0.3s ease;
+  }
+
+  .nav-links a:hover{color:var(--neon-pink);}
+  .nav-links a:hover::after{width:100%;}
+
+  .nav-search{
+    display:flex;
+    align-items:center;
+    background:var(--bg-panel-light);
+    border:1px solid var(--border-soft);
+    border-radius:999px;
+    padding:8px 16px;
+    gap:8px;
+    min-width:180px;
+    transition:box-shadow 0.3s, border-color 0.3s;
+  }
+
+  .nav-search:focus-within{
+    border-color:var(--neon-pink);
+    box-shadow:0 0 12px rgba(255,46,196,0.4);
+  }
+
+  .nav-search input{
+    background:transparent;
+    border:none;
+    outline:none;
+    color:var(--text-main);
+    font-family:inherit;
+    font-size:0.9rem;
+    width:100%;
+  }
+
+  .nav-search input::placeholder{color:var(--text-dim);}
+  .nav-search svg{flex-shrink:0;stroke:var(--text-dim);}
+
+  /* Language switcher */
+  .lang-switch{
+    display:flex;
+    background:var(--bg-panel-light);
+    border:1px solid var(--border-soft);
+    border-radius:999px;
+    padding:4px;
+    gap:2px;
+    flex-shrink:0;
+  }
+
+  .lang-btn{
+    padding:6px 14px;
+    border-radius:999px;
+    background:transparent;
+    color:var(--text-dim);
+    font-size:0.8rem;
+    font-weight:600;
+    transition:all 0.25s ease;
+  }
+
+  .lang-btn.active{
+    background:linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
+    color:#fff;
+    box-shadow:0 0 10px rgba(255,46,196,0.4);
+  }
+
+  /* mobile menu toggle */
+  .menu-toggle{
+    display:none;
+    flex-direction:column;
+    gap:5px;
+    background:none;
+    flex-shrink:0;
+    padding:8px;
+  }
+  .menu-toggle span{
+    width:24px;height:2px;background:var(--text-main);border-radius:2px;
+  }
+
+  /* ===========================
+     HERO SECTION
+  =========================== */
+  .hero{
+    position:relative;
+    min-height:88vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:60px 24px;
+    background:
+      linear-gradient(180deg, rgba(10,7,19,0.4) 0%, rgba(10,7,19,0.85) 85%, var(--bg-base) 100%),
+      url('https://picsum.photos/seed/animehero/1600/900');
+    background-size:cover;
+    background-position:center;
+    overflow:hidden;
+  }
+
+  .hero::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:radial-gradient(ellipse at center, transparent 30%, var(--bg-base) 95%);
+    pointer-events:none;
+  }
+
+  .hero-content{
+    position:relative;
+    z-index:2;
+    max-width:700px;
+    animation:fadeUp 1s ease both;
+  }
+
+  .hero-content .eyebrow{
+    letter-spacing:4px;
+    text-transform:uppercase;
+    font-size:0.8rem;
+    color:var(--neon-blue);
+    margin-bottom:16px;
+    display:inline-block;
+  }
+
+  .hero-content h1{
+    font-size:clamp(2.2rem, 6vw, 4rem);
+    font-weight:800;
+    line-height:1.25;
+    margin-bottom:20px;
+  }
+
+  .hero-content h1 span{
+    background:linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+
+  .hero-content p{
+    color:var(--text-dim);
+    font-size:1.05rem;
+    margin-bottom:32px;
+    line-height:1.8;
+  }
+
+  .btn-primary{
+    display:inline-block;
+    padding:16px 40px;
+    border-radius:999px;
+    background:linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
+    color:#fff;
+    font-weight:600;
+    font-size:1rem;
+    box-shadow:var(--shadow-glow);
+    transition:transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .btn-primary:hover{
+    transform:translateY(-3px) scale(1.03);
+    box-shadow:0 0 30px rgba(255,46,196,0.6), 0 0 60px rgba(139,47,255,0.35);
+  }
+
+  .btn-outline{background:transparent;border:2px solid var(--neon-pink);box-shadow:none;margin-inline-start:12px;padding:14px 36px;}
+  .btn-outline:hover{background:rgba(255,46,196,0.15);}
+  @media (max-width:600px){ .btn-outline{margin:12px 0 0;padding:12px 28px;} }
+
+  .card-type{position:absolute;top:10px;inset-inline-start:10px;background:linear-gradient(90deg,var(--neon-pink),var(--neon-purple));color:#fff;font-size:0.72rem;font-weight:600;padding:4px 10px;border-radius:999px;}
+  #typeBar .filter-btn{font-size:0.95rem;padding:10px 24px;margin-bottom:0;}
+  #typeBar{margin-bottom:18px;}
+
+  .search-panel{display:flex;gap:12px;flex-wrap:wrap;align-items:center;}
+  .search-panel .nav-search{flex:1;min-width:240px;padding:12px 20px;}
+  .search-panel select{flex:1;max-width:260px;background:var(--bg-panel-light);color:var(--text-main);border:1px solid var(--border-soft);border-radius:999px;padding:12px 18px;font-family:inherit;font-size:0.9rem;min-width:150px;outline:none;cursor:pointer;}
+  .search-panel select:focus{border-color:var(--neon-pink);}
+  .search-panel option{background:var(--bg-panel);}
+  .cat-row{margin-bottom:38px;}
+  .row-head,.results-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap;}
+  .row-title{font-size:1.4rem;font-weight:700;border-inline-start:4px solid var(--neon-pink);padding-inline-start:10px;}
+  .more-btn{padding:8px 20px;border-radius:999px;border:1px solid var(--neon-purple);color:var(--text-main);background:transparent;font-size:0.85rem;font-weight:500;font-family:inherit;cursor:pointer;transition:all .25s ease;white-space:nowrap;}
+  .more-btn:hover{background:linear-gradient(90deg,var(--neon-pink),var(--neon-purple));border-color:transparent;box-shadow:0 0 14px rgba(255,46,196,0.4);}
+  .row-scroll{display:flex;gap:16px;overflow-x:auto;padding:4px 2px 10px;scroll-snap-type:x proximity;scrollbar-width:thin;scrollbar-color:rgba(139,47,255,0.55) transparent;}
+  .row-scroll::-webkit-scrollbar{height:3px;}
+  .row-scroll::-webkit-scrollbar-track{background:transparent;}
+  .row-scroll::-webkit-scrollbar-thumb{background:rgba(139,47,255,0.55);border-radius:3px;}
+  .row-scroll::-webkit-scrollbar-thumb:hover{background:var(--neon-pink);}
+  .mini{flex:0 0 165px;scroll-snap-align:start;border-radius:14px;overflow:hidden;border:1px solid var(--border-soft);background:var(--bg-panel);transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;}
+  .mini:hover{transform:translateY(-6px);border-color:var(--neon-purple);box-shadow:0 10px 24px rgba(139,47,255,0.3);}
+  .mini-img{position:relative;aspect-ratio:3/4;background:linear-gradient(160deg,var(--bg-panel-light),var(--bg-panel));}
+  .mini-img img{width:100%;height:100%;object-fit:cover;}
+  .mini-title{position:absolute;bottom:0;left:0;right:0;padding:34px 10px 10px;font-size:0.82rem;font-weight:600;line-height:1.5;background:linear-gradient(transparent,rgba(10,7,19,0.95));}
+  .row-empty{color:var(--text-dim);padding:18px 4px;font-size:0.9rem;}
+  .cat-mode .hero{display:none;}
+  @media (max-width:600px){.mini{flex-basis:140px;}.row-title{font-size:1.15rem;}.search-panel select{flex:1;min-width:120px;}}
+
+  .card-body h3,.mini-title,.sp-info b{overflow-wrap:anywhere;}
+
+  @keyframes fadeUp{
+    from{opacity:0; transform:translateY(30px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  /* ===========================
+     GENERIC SECTION SPACING
+  =========================== */
+  section{
+    padding:80px 0;
+  }
+
+  /* ===========================
+     GENRE FILTER BUTTONS
+  =========================== */
+  .filter-bar{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:40px;
+  }
+
+  .filter-btn{
+    padding:9px 20px;
+    border-radius:999px;
+    background:var(--bg-panel-light);
+    border:1px solid var(--border-soft);
+    color:var(--text-dim);
+    font-size:0.85rem;
+    font-weight:500;
+    transition:all 0.25s ease;
+    white-space:nowrap;
+  }
+
+  .filter-btn:hover{
+    color:var(--text-main);
+    border-color:var(--neon-blue);
+    transform:translateY(-2px);
+  }
+
+  .filter-btn.active{
+    background:linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
+    color:#fff;
+    border-color:transparent;
+    box-shadow:0 0 15px rgba(255,46,196,0.45);
+  }
+
+  /* ===========================
+     ANIME CARD GRID
+  =========================== */
+  .anime-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(230px, 1fr));
+    gap:24px;
+  }
+
+  .anime-card{
+    background:var(--bg-panel);
+    border:1px solid var(--border-soft);
+    border-radius:16px;
+    overflow:hidden;
+    transition:transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    display:flex;
+    flex-direction:column;
+    animation:cardIn 0.4s ease both;
+  }
+
+  @keyframes cardIn{
+    from{opacity:0; transform:translateY(16px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  .anime-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 12px 30px rgba(139,47,255,0.3);
+    border-color:var(--neon-purple);
+  }
+
+  .anime-card .card-img{
+    position:relative;
+    width:100%;
+    aspect-ratio:3/4;
+    overflow:hidden;
+  }
+
+  .anime-card .card-img img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:transform 0.5s ease;
+  }
+
+  .anime-card:hover .card-img img{
+    transform:scale(1.08);
+  }
+
+  .card-rating{
+    position:absolute;
+    top:10px; inset-inline-end:10px;
+    background:rgba(10,7,19,0.8);
+    backdrop-filter:blur(4px);
+    color:#ffd76a;
+    font-size:0.8rem;
+    font-weight:600;
+    padding:4px 10px;
+    border-radius:999px;
+    border:1px solid rgba(255,215,106,0.4);
+  }
+
+  .card-body{
+    padding:16px 18px 20px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    flex:1;
+  }
+
+  .card-body h3{
+    font-size:1.05rem;
+    font-weight:600;
+  }
+
+  .card-genres{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+  }
+
+  .genre-tag{
+    font-size:0.7rem;
+    padding:3px 10px;
+    border-radius:999px;
+    background:rgba(47,216,255,0.12);
+    color:var(--neon-blue);
+    border:1px solid rgba(47,216,255,0.3);
+  }
+
+  .btn-details{
+    margin-top:auto;
+    padding:10px 0;
+    border-radius:10px;
+    background:var(--bg-panel-light);
+    color:var(--text-main);
+    font-weight:500;
+    font-size:0.85rem;
+    border:1px solid var(--border-soft);
+    transition:all 0.25s ease;
+    display:block;
+    text-align:center;
+  }
+
+  .btn-details:hover{
+    background:linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
+    border-color:transparent;
+    box-shadow:0 0 12px rgba(255,46,196,0.4);
+  }
+
+  .no-results{
+    text-align:center;
+    padding:40px 20px;
+    color:var(--text-dim);
+    grid-column:1/-1;
+  }
+
+  /* ===========================
+     CHARACTERS SECTION
+  =========================== */
+  .characters-scroll{
+    display:flex;
+    gap:22px;
+    overflow-x:auto;
+    padding-bottom:16px;
+    scroll-snap-type:x mandatory;
+  }
+
+  .char-card{
+    scroll-snap-align:start;
+    min-width:180px;
+    background:var(--bg-panel);
+    border:1px solid var(--border-soft);
+    border-radius:16px;
+    text-align:center;
+    padding:20px 14px 18px;
+    flex-shrink:0;
+    transition:transform 0.3s ease, border-color 0.3s ease;
+  }
+
+  .char-card:hover{
+    transform:translateY(-6px);
+    border-color:var(--neon-pink);
+  }
+
+  .char-avatar{
+    width:110px;
+    height:110px;
+    border-radius:50%;
+    overflow:hidden;
+    margin:0 auto 14px;
+    border:3px solid transparent;
+    background:linear-gradient(var(--bg-panel), var(--bg-panel)) padding-box,
+               linear-gradient(135deg, var(--neon-pink), var(--neon-blue)) border-box;
+  }
+
+  .char-avatar img{width:100%;height:100%;object-fit:cover;}
+
+  .char-card h4{font-size:1rem;margin-bottom:4px;}
+  .char-card p{font-size:0.8rem;color:var(--text-dim);}
+
+  /* ===========================
+     NEWS SECTION
+  =========================== */
+  .news-list{
+    display:grid;
+    gap:20px;
+  }
+
+  .news-item{
+    background:var(--bg-panel);
+    border:1px solid var(--border-soft);
+    border-inline-start:4px solid var(--neon-pink);
+    border-radius:12px;
+    padding:22px 26px;
+    transition:transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .news-item:hover{
+    transform:translateX(6px);
+    box-shadow:0 8px 20px rgba(255,46,196,0.15);
+  }
+
+  html[dir="rtl"] .news-item:hover{
+    transform:translateX(-6px);
+  }
+
+  .news-date{
+    font-size:0.78rem;
+    color:var(--neon-blue);
+    text-transform:uppercase;
+    letter-spacing:1px;
+    margin-bottom:6px;
+    display:block;
+  }
+
+  .news-item h3{
+    font-size:1.15rem;
+    margin-bottom:8px;
+  }
+
+  .news-item p{
+    color:var(--text-dim);
+    font-size:0.9rem;
+    line-height:1.8;
+  }
+
+  /* ===========================
+     ABOUT SECTION
+  =========================== */
+  .about-box{
+    background:var(--bg-panel);
+    border:1px solid var(--border-soft);
+    border-radius:20px;
+    padding:40px;
+    text-align:center;
+    max-width:800px;
+    margin:0 auto;
+  }
+
+  .about-box p{
+    color:var(--text-dim);
+    line-height:1.9;
+    font-size:1rem;
+  }
+
+  /* ===========================
+     AD BANNERS
+  =========================== */
+  .ad-banner{
+    margin:0 auto 20px;
+  }
+  .ad-banner-label{
+    font-size:0.68rem;
+    color:var(--text-dim);
+    text-align:center;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    margin-bottom:8px;
+    opacity:0.6;
+  }
+  .ad-banner a{
+    display:block;
+    border-radius:16px;
+    overflow:hidden;
+    border:1px solid var(--border-soft);
+    transition:transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .ad-banner a:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 24px rgba(139,47,255,0.25);
+  }
+  .ad-banner img{
+    width:100%;
+    display:block;
+    object-fit:cover;
+    max-height:220px;
+  }
+  .ad-embed-wrap{ width:100%; overflow:hidden; }
+
+  /* ===========================
+     FOOTER
+  =========================== */
+  footer{
+    background:var(--bg-panel);
+    border-top:1px solid var(--border-soft);
+    padding:40px 24px 30px;
+    text-align:center;
+  }
+
+  .footer-social{
+    display:flex;
+    justify-content:center;
+    gap:16px;
+    margin-bottom:20px;
+  }
+
+  .footer-social a{
+    width:42px;height:42px;
+    display:flex;align-items:center;justify-content:center;
+    border-radius:50%;
+    background:var(--bg-panel-light);
+    border:1px solid var(--border-soft);
+    transition:all 0.3s ease;
+  }
+
+  .footer-social a:hover{
+    background:linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+    transform:translateY(-4px);
+    box-shadow:0 0 15px rgba(255,46,196,0.5);
+  }
+
+  .footer-social svg{stroke:var(--text-main);width:18px;height:18px;}
+
+  footer p{
+    color:var(--text-dim);
+    font-size:0.85rem;
+  }
+
+  /* Back to top button */
+  #backToTop{
+    position:fixed;
+    bottom:28px;
+    inset-inline-end:28px;
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    background:linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+    color:#fff;
+    font-size:1.2rem;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:var(--shadow-glow);
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(20px);
+    transition:all 0.35s ease;
+    z-index:999;
+  }
+
+  #backToTop.show{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+  }
+
+  #backToTop:hover{transform:translateY(-4px) scale(1.05);}
+
+  /* ===========================
+     RESPONSIVE
+  =========================== */
+  @media (max-width:900px){
+    .navbar{ row-gap:12px; justify-content:flex-start; }
+    .logo{ order:1; }
+    .menu-toggle{ order:2; }
+    .lang-switch{ order:3; margin-inline-start:auto; }
+    .nav-links{
+      position:fixed;
+      top:64px; left:0; right:0;
+      background:var(--bg-panel);
+      flex-direction:column;
+      padding:20px 24px;
+      gap:18px;
+      border-bottom:1px solid var(--border-soft);
+      transform:translateY(-150%);
+      transition:transform 0.35s ease;
+      z-index:998;
+    }
+    .nav-links.open{transform:translateY(0);}
+    .menu-toggle{display:flex;}
+    .nav-search{
+      order:4;
+      flex-basis:100%;
+      width:100%;
+      min-width:0;
+    }
+  }
+
+  @media (max-width:600px){
+    html, body{ overflow-x:hidden; max-width:100%; }
+    .navbar{padding:12px 16px; gap:10px;}
+    .logo{ font-size:1.4rem; }
+    .nav-search{min-width:0;}
+    section{padding:56px 0;}
+    .about-box{padding:26px;}
+
+    .hero{ min-height:76vh; padding:48px 18px; }
+    .hero-content p{ font-size:0.92rem; }
+    .btn-primary{ padding:14px 30px; font-size:0.92rem; }
+
+    .filter-bar{ gap:8px; }
+    .filter-btn{ padding:8px 16px; font-size:0.78rem; }
+
+    .anime-grid{ grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:14px; }
+    .card-body{ padding:12px 14px 16px; }
+    .card-body h3{ font-size:0.92rem; }
+
+    .char-card{ min-width:145px; padding:16px 10px 14px; }
+    .char-avatar{ width:84px; height:84px; }
+
+    .news-item{ padding:18px 18px; }
+
+    .footer-social{ flex-wrap:wrap; }
+
+    #backToTop{ bottom:18px; inset-inline-end:18px; width:44px; height:44px; }
+  }
+
+  @media (max-width:420px){
+    .hero-content h1{ font-size:1.9rem; line-height:1.35; }
+    .anime-grid{ grid-template-columns:repeat(auto-fill, minmax(135px, 1fr)); gap:10px; }
+    .section-title{ font-size:1.6rem; }
+  }
+</style>
+</head>
+<body class="cat-page">
+
+<header>
+  <nav class="navbar">
+    <a href="index.html" class="logo">アニメ World</a>
+    <div class="nav-search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input type="text" id="searchInput" placeholder="Search...">
+    </div>
+    <div class="lang-switch" id="langSwitch">
+      <button class="lang-btn active" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="fa">فا</button>
+    </div>
+  </nav>
+</header>
+
+<main style="padding:36px 0 70px;min-height:70vh">
+  <div class="container">
+    <div class="results-head">
+      <h1 class="row-title" id="catTitle"></h1>
+      <a class="more-btn" href="index.html" id="backBtn"></a>
+    </div>
+    <div class="filter-bar" id="catTabs"></div>
+    <div class="search-panel" style="margin-bottom:28px"><select id="genreSelect" aria-label="genre"></select></div>
+    <div class="anime-grid" id="animeGrid"></div>
+  </div>
+</main>
+
+<footer><p>&copy; <span id="year"></span> Anime World</p></footer>
+
+<script>
+/* داده‌ها از روی index.html خونده می‌شن (همون فایلی که منیجر آپدیتش می‌کنه) */
+const genreLabels = {
+  "All":{en:"All", fa:"همه"},
+  "Isekai":{en:"Isekai", fa:"ایسکای"},
+  "Action":{en:"Action", fa:"اکشن"},
+  "Comedy":{en:"Comedy", fa:"کمدی"},
+  "Romance":{en:"Romance", fa:"عاشقانه"},
+  "Fantasy":{en:"Fantasy", fa:"فانتزی"},
+  "Adventure":{en:"Adventure", fa:"ماجراجویی"},
+  "Drama":{en:"Drama", fa:"درام"},
+  "Slice of Life":{en:"Slice of Life", fa:"زندگی روزمره"},
+  "Sci-Fi":{en:"Sci-Fi", fa:"علمی-تخیلی"},
+  "Horror":{en:"Horror", fa:"ترسناک"},
+  "Mystery":{en:"Mystery", fa:"معمایی"},
+  "Sports":{en:"Sports", fa:"ورزشی"},
+  "Supernatural":{en:"Supernatural", fa:"ماوراءالطبیعه"},
+  "School":{en:"School", fa:"مدرسه‌ای"},
+  "Crime":{en:"Crime", fa:"جنایی"},
+  "Thriller":{en:"Thriller", fa:"هیجانی"},
+  "War":{en:"War", fa:"جنگی"},
+  "Biography":{en:"Biography", fa:"زندگی‌نامه‌ای"},
+  "History":{en:"History", fa:"تاریخی"},
+  "Family":{en:"Family", fa:"خانوادگی"},
+  "Musical":{en:"Musical", fa:"موزیکال"},
+  "Superhero":{en:"Superhero", fa:"ابرقهرمانی"},
+  "Kids":{en:"Kids", fa:"کودکانه"},
+  "Medical":{en:"Medical", fa:"پزشکی"}
+};
+
+/* انواع محتوا و ژانرهای هر کدوم — پیشوند id: a=انیمه، m=فیلم، c=انیمیشن، s=سریال */
+const typeGenres = {"anime": ["Isekai", "Action", "Comedy", "Romance", "Fantasy", "Adventure", "Drama", "Slice of Life", "Sci-Fi", "Horror", "Mystery", "Sports", "Supernatural", "School"], "movie": ["Crime", "Thriller", "Action", "Drama", "Comedy", "Horror", "Sci-Fi", "Romance", "Adventure", "Fantasy", "War", "Biography", "History", "Mystery"], "animation": ["Family", "Comedy", "Adventure", "Fantasy", "Musical", "Superhero", "Action", "Sci-Fi", "Kids", "Drama"], "series": ["Crime", "Drama", "Thriller", "Comedy", "Sci-Fi", "Fantasy", "Horror", "Mystery", "Action", "Romance", "Medical", "History"]};
+const typeLabels = {
+  all:{en:"All", fa:"همه"}, anime:{en:"Anime", fa:"انیمه"}, movie:{en:"Movies", fa:"فیلم"}, animation:{en:"Animation", fa:"انیمیشن"}, series:{en:"Series", fa:"سریال"}
+};
+const typeByPrefix = { a:"anime", m:"movie", c:"animation", s:"series" };
+function typeOf(a){ return typeByPrefix[(a.id||"a")[0]] || "anime"; }
+let currentType = 'all';
+
+const T = {
+  en:{ search:"Search...", back:"Back to home", allGenres:"All genres", details:"Get Subtitles", none:"Nothing found.", loading:"Loading...", err:"Couldn't load the list. Open this page from your website (GitHub Pages), not as a local file.", na:"N/A" },
+  fa:{ search:"جستجو...", back:"بازگشت به صفحه اصلی", allGenres:"همه‌ی ژانرها", details:"دریافت زیرنویس", none:"موردی پیدا نشد.", loading:"در حال بارگذاری...", err:"لیست بارگذاری نشد. این صفحه رو از روی سایت (گیت‌هاب) باز کن، نه به‌صورت فایل محلی.", na:"ثبت نشده" }
+};
+const rowTitles = { anime:{en:"Anime", fa:"زیرنویس انیمه"}, movie:{en:"Movies", fa:"زیرنویس فیلم"}, animation:{en:"Animation", fa:"زیرنویس انیمیشن"}, series:{en:"Series", fa:"زیرنویس سریال"} };
+let animeData = [], loaded = false, failed = false, currentGenre = 'All', currentSearch = '', currentLang = 'en';
+let cat = new URLSearchParams(location.search).get('cat');
+if(!typeGenres[cat]) cat = 'anime';
+
+function applyLanguage(lang){
+  currentLang = lang;
+  try{ localStorage.setItem('lang', lang); }catch(e){}
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === 'fa' ? 'rtl' : 'ltr';
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  document.getElementById('searchInput').placeholder = T[lang].search;
+  document.getElementById('backBtn').textContent = T[lang].back;
+  document.title = rowTitles[cat][lang] + ' — Anime World';
+  renderTabs(); renderGenres(); render();
+}
+function renderTabs(){
+  document.getElementById('catTabs').innerHTML = ['anime','movie','animation','series'].map(t =>
+    `<a class="filter-btn${t===cat?' active':''}" href="category.html?cat=${t}">${typeLabels[t][currentLang]}</a>`).join('');
+}
+function renderGenres(){
+  document.getElementById('genreSelect').innerHTML = `<option value="All">${T[currentLang].allGenres}</option>` +
+    typeGenres[cat].map(g => `<option value="${g}"${g===currentGenre?' selected':''}>${genreLabels[g][currentLang]}</option>`).join('');
+}
+function cardHtml(a){
+  return `<div class="card-img"><img src="${a.img}" alt="${a.title[currentLang]}" loading="lazy" onerror="this.style.visibility='hidden'">
+    <span class="card-rating">★ ${a.rating !== null ? a.rating : T[currentLang].na}</span></div>
+    <div class="card-body"><h3>${a.title[currentLang]}</h3>
+    <div class="card-genres">${a.genres.map(g => `<span class="genre-tag">${genreLabels[g] ? genreLabels[g][currentLang] : g}</span>`).join('')}</div>
+    <a href="anime-details.html?id=${a.id}" class="btn-details">${T[currentLang].details}</a></div>`;
+}
+function render(){
+  const grid = document.getElementById('animeGrid');
+  const q = currentSearch.trim().toLowerCase();
+  const list = animeData.filter(a => typeOf(a) === cat && (currentGenre === 'All' || a.genres.includes(currentGenre)) &&
+    (q === '' || a.title.en.toLowerCase().includes(q) || a.title.fa.toLowerCase().includes(q))).reverse();
+  const n = currentLang === 'fa' ? list.length.toLocaleString('fa-IR') : list.length;
+  document.getElementById('catTitle').textContent = rowTitles[cat][currentLang] + (loaded ? ' (' + n + ')' : '');
+  if(failed){ grid.innerHTML = `<p class="no-results">${T[currentLang].err}</p>`; return; }
+  if(!loaded){ grid.innerHTML = `<p class="no-results">${T[currentLang].loading}</p>`; return; }
+  grid.innerHTML = '';
+  if(!list.length){ grid.innerHTML = `<p class="no-results">${T[currentLang].none}</p>`; return; }
+  list.forEach(a => { const el = document.createElement('div'); el.className = 'anime-card'; el.innerHTML = cardHtml(a); grid.appendChild(el); });
+}
+document.getElementById('langSwitch').addEventListener('click', e => { const b = e.target.closest('.lang-btn'); if(b) applyLanguage(b.dataset.lang); });
+document.getElementById('genreSelect').addEventListener('change', e => { currentGenre = e.target.value; render(); });
+document.getElementById('searchInput').addEventListener('input', e => { currentSearch = e.target.value; render(); });
+document.getElementById('year').textContent = new Date().getFullYear();
+
+let lang0 = 'en'; try{ lang0 = localStorage.getItem('lang') === 'fa' ? 'fa' : 'en'; }catch(e){}
+applyLanguage(lang0);
+fetch('index.html').then(r => r.text()).then(t => {
+  const m = t.match(/const animeData = (\[[\s\S]*?\n\]);\n\nconst characterData/);
+  animeData = (new Function('return ' + m[1]))();
+  loaded = true; render();
+}).catch(() => { failed = true; render(); });
+</script>
+</body>
+</html>
